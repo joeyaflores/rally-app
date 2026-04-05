@@ -1,0 +1,25 @@
+app = "rally-app"
+primary_region = "dfw"
+
+[build]
+
+[env]
+BETTER_AUTH_URL = "https://rally-app.fly.dev"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[http_service.checks]]
+  grace_period = "30s"
+  interval = "60s"
+  method = "GET"
+  timeout = "10s"
+  path = "/api/health"
+
+[mounts]
+  source = "data"
+  destination = "/data"
