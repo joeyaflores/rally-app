@@ -121,171 +121,147 @@ export interface RallyConfig {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// YOUR CONFIG — Edit everything below
+// Más Millas Run Club 🌵 — Fort Worth, TX
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const config: RallyConfig = {
-  // ─── Identity ───
-  // Your community's name as it appears across the app.
-  name: "your community",
-  fullName: "Your Community Run Club",
-  legalName: "Your Community LLC",
-  shortName: "YC",
-  tagline: "your tagline here",
-  location: "Your City, State",
-  email: "hello@yourcommunity.com",
+  name: "más millas",
+  fullName: "Más Millas Run Club",
+  legalName: "Más Millas Run Club",
+  shortName: "MMRC",
+  tagline: "more smiles",
+  location: "Fort Worth, Texas",
+  email: "hello@masmillasrunclub.com",
   url: process.env.NEXT_PUBLIC_URL || "http://localhost:3000",
 
-  // ─── Terminology ───
-  // How you refer to your community and its members.
-  // These terms appear in headings, labels, and greetings throughout the app.
   terms: {
-    community: "the crew",             // section heading for your platforms
-    member: "members",                 // plural: "42 members showed up"
-    memberSingular: "member",          // singular: "new member"
-    greeting: "welcome",               // post-checkin: "welcome, alex"
-    welcome: "all paces welcome",      // hero subtitle
-    cta: "just show up",               // CTA heading
+    community: "la comunidad",
+    member: "runners",
+    memberSingular: "runner",
+    greeting: "más millas",
+    welcome: "everyone's welcome",
+    cta: "come run with us",
   },
 
-  // ─── Team ───
   founders: [
-    { name: "Your Name", role: "Founder" },
+    { name: "Brianna", role: "Co-Founder" },
+    { name: "JM", role: "Co-Founder" },
+    { name: "Abel", role: "Co-Founder" },
   ],
 
-  // ─── Content Creators ───
-  // People who create content for the calendar. Each gets a color dot.
   creators: [
-    { id: "you", label: "You", color: "#3B82F6" },
+    { id: "brianna", label: "Brianna", color: "#D4703F" },
+    { id: "jm", label: "JM", color: "#1B4332" },
+    { id: "abel", label: "Abel", color: "#B8860B" },
+    { id: "j.narvaez", label: "J. Narvaez", color: "#6B7280" },
   ],
 
-  // ─── Recurring Events ───
-  // Your regular meetups. These drive the /join page schedule and the
-  // weekly runs widget on the dashboard.
   events: [
     {
-      name: "Tuesday Group Run",
-      shortName: "Group Run",
+      name: "Tuesday Night Run",
+      shortName: "Night Run",
       day: "Tuesday",
       dayShort: "Tue",
-      time: "6:00 PM",
-      timeSplit: { value: "6:00", period: "PM" },
+      time: "7:30 PM",
+      timeSplit: { value: "7:30", period: "PM" },
       timeOfDay: "evening",
-      location: "123 Main Street, Your City, ST",
-      locationShort: "123 Main St",
-      mapUrl: "https://maps.apple.com/?address=123+Main+St,+Your+City,+ST",
+      location: "Riverside Park, Fort Worth, TX",
+      locationShort: "Riverside Park",
+      mapUrl: "https://maps.apple.com/?address=Riverside+Park,+Fort+Worth,+TX",
       distance: "3 miles",
-      distanceShort: "3 mi",
+      distanceShort: "3 mi \u00b7 Riverside Park",
       description:
-        "An easy weeknight run. All paces, all welcome.",
-    },
-    {
-      name: "Saturday Long Run",
-      shortName: "Long Run",
-      day: "Saturday",
-      dayShort: "Sat",
-      time: "7:00 AM",
-      timeSplit: { value: "7:00", period: "AM" },
-      timeOfDay: "morning",
-      location: "456 Park Avenue, Your City, ST",
-      locationShort: "456 Park Ave",
-      mapUrl: "https://maps.apple.com/?address=456+Park+Ave,+Your+City,+ST",
-      distance: "5 miles",
-      distanceShort: "5 mi",
-      description:
-        "Start the weekend with some miles. Longer distance, same energy.",
+        "The weekly run. Three miles, all paces, all faces. Stick around after for the community hang.",
     },
   ],
 
-  // ─── Social Platforms ───
   socials: {
     instagram: {
-      handle: "@yourcommunity",
-      url: "https://instagram.com/yourcommunity",
+      handle: "@masmillasrunclub",
+      url: "https://instagram.com/masmillasrunclub",
     },
     tiktok: {
-      handle: "@yourcommunity",
-      url: "https://tiktok.com/@yourcommunity",
+      handle: "@masmillasrunclub",
+      url: "https://tiktok.com/@masmillasrunclub",
     },
     strava: {
-      handle: "Your Community Run Club",
-      url: "https://strava.com/clubs/yourcommunity",
+      handle: "Más Millas Run Club",
+      url: "https://strava.com/clubs/masmillasrunclub",
     },
   },
 
-  // Handles used by the Apify scraper (without @)
   scrapeHandles: {
-    instagram: "yourcommunity",
-    tiktok: "yourcommunity",
+    instagram: "masmillasrunclub",
+    tiktok: "masmillasrunclub",
   },
 
-  // ─── Design ───
-  // Primary color palette. After changing these, also update the matching
-  // CSS custom properties in src/app/globals.css (see comments there).
+  // ─── Desert Warmth palette ───
+  // Deep cactus green as the primary, terracotta as the accent.
+  // Warm sand background instead of cool grey. Feels like a
+  // Fort Worth sunset, not a corporate dashboard.
   theme: {
-    primary: "#132C83",        // main brand color (navy)
-    primaryLight: "#1E3FA0",
-    primaryDark: "#0D1F5C",
-    accent: "#FF6B35",         // warm accent
-    accentLight: "#FF8A5C",
-    accentMuted: "#FFF0EA",
-    gold: "#FFB347",
-    background: "#F6F7FB",     // page background
+    primary: "#1B4332",        // deep cactus green
+    primaryLight: "#2D6A4F",   // sage
+    primaryDark: "#0B2E1F",    // midnight green
+    accent: "#D4703F",         // terracotta
+    accentLight: "#E08B5E",    // warm clay
+    accentMuted: "#FDF0E8",    // sand blush
+    gold: "#D4A017",           // desert sun
+    background: "#F8F5F0",     // warm sand
   },
 
-  // The letter shown in the generated Apple touch icon
-  appleIconLetter: "R",
+  appleIconLetter: "M",
 
-  // Hero slideshow images on the /join page.
-  // Replace these files in /public with your own photos.
   heroImages: [
     {
       src: "/hero-big-group.webp",
-      alt: "Community group photo",
+      alt: "Más Millas runners gathered at Riverside Park",
       position: "center 65%",
     },
     {
       src: "/hero-post-race.webp",
-      alt: "Celebrating together",
+      alt: "Celebrating together after a Tuesday night run",
       position: "center 35%",
     },
     {
       src: "/hero-cheer-zone.webp",
-      alt: "Cheering each other on",
+      alt: "The community cheering each other on",
       position: "center center",
     },
   ],
 
-  // ─── Page Copy ───
   joinPage: {
-    heroSubtitle: "all paces welcome \u00b7 just show up",
-    eventsIntro: "We run together every week. Pick a day or show up to both.",
-    ctaHeading: "just show up",
-    ctaBody: "No sign-up, no membership fee. Find us at the meetup spot and we'll take it from there.",
+    heroSubtitle: "everyone's welcome \u00b7 come run with us",
+    eventsIntro:
+      "One run a week at Riverside Park. All paces, all faces.",
+    ctaHeading: "come run with us",
+    ctaBody:
+      "No sign-up, no membership fee. Meet us at Riverside Park on Tuesday nights and we'll take it from there.",
     ctaButtonText: "follow along",
     ctaSecondaryText: "learn more",
     emailCaptureLabel: "Stay in the loop",
-    successMessage: "you're in. welcome.",
+    successMessage: "you're in. más millas.",
   },
 
   checkin: {
-    welcomeMessage: "welcome to the crew",
-    privacyNotice: "Your info is only used to keep you in the loop. We'll never share it.",
-    localStorageKey: "rally-checkin",
+    welcomeMessage: "bienvenidos a la comunidad",
+    privacyNotice:
+      "Your info is only used by Más Millas Run Club to keep you in the loop. We'll never share it.",
+    localStorageKey: "masmillas-checkin",
   },
 
   report: {
-    defaultLocation: "Your City, ST",
+    defaultLocation: "Fort Worth, TX",
   },
 
   authErrors: {
     unauthorized: {
       heading: "not on the team yet",
-      body: "this google account isn't part of the team. if you think it should be, reach out to an admin.",
+      body: "this google account isn't part of the team. if you think it should be, reach out to brianna or jm.",
     },
     default: {
       heading: "something went wrong",
-      body: "we hit an unexpected bump. try signing in again.",
+      body: "we hit an unexpected bump. try signing in again — if it keeps happening, let us know.",
     },
   },
 };

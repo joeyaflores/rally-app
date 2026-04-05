@@ -42,7 +42,7 @@ export const strava = { members: 0, posts: { jan: 0, feb: 0 } };
 
 export const events: { date: string; day: string; attendance: number }[] = [];
 
-export const partnerships: { name: string; type: string; status: "lead" | "active" | "closed"; description: string }[] = [];
+export const partnerships: { name: string; type: string; status: "lead" | "active" | "completed"; description: string }[] = [];
 
 export { pctChange, formatNumber } from "./format";
 

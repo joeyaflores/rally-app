@@ -71,7 +71,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${madeMirage.variable} ${coolvetica.variable} ${bebasNeue.variable} antialiased`}
-        style={{ backgroundColor: "#F6F7FB" }}
+        style={{ backgroundColor: "#F8F5F0" }}
         suppressHydrationWarning
       >
         <TooltipProvider>
