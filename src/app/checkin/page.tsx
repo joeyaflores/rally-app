@@ -53,9 +53,9 @@ export default async function CheckinPage() {
           <Image
             src="/logo-mascot.png"
             alt=""
-            width={48}
-            height={60}
-            className="h-10 w-auto brightness-0 invert opacity-60 sm:h-12"
+            width={80}
+            height={100}
+            className="h-16 w-auto brightness-0 invert opacity-60 sm:h-20"
           />
           <p className="font-display text-xs font-bold uppercase tracking-wide text-white/50 sm:text-sm">
             {config.fullName}
@@ -97,7 +97,7 @@ export default async function CheckinPage() {
                   alt=""
                   width={120}
                   height={150}
-                  className="mx-auto mb-6 h-24 w-auto brightness-0 invert opacity-20 sm:h-28"
+                  className="mx-auto mb-6 h-32 w-auto brightness-0 invert opacity-20 sm:h-36"
                 />
                 <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white/60">
                   no active check-in
