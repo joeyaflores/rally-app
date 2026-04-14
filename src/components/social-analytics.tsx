@@ -247,7 +247,7 @@ export function SocialAnalytics({
         <div className="absolute right-6 top-10 h-10 w-10 rounded-full bg-white/[0.03]" />
         <div className="relative flex items-center justify-between px-5 py-4 sm:px-6">
           <div>
-            <p className="text-[11px] font-medium text-white/50 sm:text-xs">
+            <p className="font-display text-[11px] font-medium uppercase text-white/50 sm:text-xs">
               runners
             </p>
             <div className="mt-0.5 flex items-baseline gap-2">
@@ -259,7 +259,7 @@ export function SocialAnalytics({
               )}
             </div>
           </div>
-          <p className="text-[10px] text-white/30 sm:text-xs sm:text-white/40">
+          <p className="font-display text-[10px] uppercase text-white/30 sm:text-xs sm:text-white/40">
             ig + tiktok followers
           </p>
         </div>
@@ -321,7 +321,7 @@ export function SocialAnalytics({
                   <p className="mt-3 font-stat text-4xl leading-none tracking-wide text-navy sm:text-5xl">
                     {followers.toLocaleString()}
                   </p>
-                  <p className="mt-1 text-xs text-muted-foreground/50">
+                  <p className="mt-1 font-display text-xs uppercase text-muted-foreground/50">
                     {p.followerLabel}
                   </p>
                 </div>
@@ -331,10 +331,10 @@ export function SocialAnalytics({
                   <div className="border-t border-border/30 px-5 py-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="text-xs text-muted-foreground">
+                        <span className="font-display text-xs uppercase text-muted-foreground">
                           avg post eng rate
                         </span>
-                        <p className="text-[10px] text-muted-foreground/40">
+                        <p className="font-display text-[10px] uppercase text-muted-foreground/40">
                           ({p.engagementKeys.join(" + ")}) / posts / followers
                         </p>
                       </div>
@@ -358,7 +358,7 @@ export function SocialAnalytics({
                           <div key={m.key}>
                             <div className="flex items-center gap-1.5">
                               <MetricIcon className="h-3 w-3 text-muted-foreground/40" />
-                              <span className="text-[11px] text-muted-foreground/60">
+                              <span className="font-display text-[11px] uppercase text-muted-foreground/60">
                                 {m.label}
                               </span>
                             </div>

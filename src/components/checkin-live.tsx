@@ -575,7 +575,7 @@ export function CheckinLive({
 
                 {/* Theme picker */}
                 <div>
-                  <p className="mb-2 text-[11px] text-muted-foreground/50">check-in page theme</p>
+                  <p className="mb-2 font-display text-[11px] uppercase text-muted-foreground/50">check-in page theme</p>
                   <div className="flex gap-2">
                     {THEME_KEYS.map((key) => (
                       <button
@@ -595,7 +595,7 @@ export function CheckinLive({
 
                 {/* Image upload */}
                 <div>
-                  <p className="mb-2 text-[11px] text-muted-foreground/50">background image</p>
+                  <p className="mb-2 font-display text-[11px] uppercase text-muted-foreground/50">background image</p>
                   {newImageUrl ? (
                     <div className="relative inline-block">
                       <img
@@ -612,7 +612,7 @@ export function CheckinLive({
                       </button>
                     </div>
                   ) : (
-                    <label className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-dashed border-border/60 px-3 py-2 text-xs text-muted-foreground/50 transition-colors hover:border-navy/30 hover:text-muted-foreground">
+                    <label className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-dashed border-border/60 px-3 py-2 font-display text-xs uppercase text-muted-foreground/50 transition-colors hover:border-navy/30 hover:text-muted-foreground">
                       <Upload className="h-3 w-3" />
                       {uploadingImage ? "uploading…" : "upload image"}
                       <input
@@ -632,14 +632,14 @@ export function CheckinLive({
                 <button
                   onClick={handleOpen}
                   disabled={isPending || uploadingImage || !newDate}
-                  className="flex items-center gap-1.5 rounded-lg bg-navy px-4 py-2 text-sm font-medium text-white transition-all hover:bg-navy-light disabled:opacity-40"
+                  className="flex items-center gap-1.5 rounded-lg bg-navy px-4 py-2 font-display text-sm font-medium uppercase text-white transition-all hover:bg-navy-light disabled:opacity-40"
                 >
                   <Play className="h-3.5 w-3.5" />
                   start
                 </button>
                 <button
                   onClick={() => setShowOpen(false)}
-                  className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary/50"
+                  className="rounded-lg px-3 py-2 font-display text-sm uppercase text-muted-foreground transition-colors hover:bg-secondary/50"
                 >
                   cancel
                 </button>

@@ -152,7 +152,6 @@ const config: RallyConfig = {
     { id: "brianna", label: "Brianna", color: "#D4703F" },
     { id: "jm", label: "JM", color: "#1B4332" },
     { id: "abel", label: "Abel", color: "#B8860B" },
-    { id: "j.narvaez", label: "J. Narvaez", color: "#6B7280" },
   ],
 
   events: [

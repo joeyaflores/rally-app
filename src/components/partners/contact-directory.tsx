@@ -309,7 +309,7 @@ function ContactCard({
           <div className="flex justify-end">
             <button
               onClick={commit}
-              className="rounded-lg bg-navy px-4 py-1.5 text-xs font-medium text-white transition-opacity hover:opacity-90"
+              className="rounded-lg bg-navy px-4 py-1.5 font-display text-xs font-medium uppercase text-white transition-opacity hover:opacity-90"
             >
               done
             </button>
@@ -437,13 +437,13 @@ function ContactCard({
             <div className="flex items-center gap-2 border-t border-border/30 pt-3">
               <button
                 onClick={startEditing}
-                className="rounded-lg bg-secondary px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-secondary/80"
+                className="rounded-lg bg-secondary px-3 py-1.5 font-display text-xs font-medium uppercase text-foreground transition-colors hover:bg-secondary/80"
               >
                 edit
               </button>
               <button
                 onClick={() => onCollab(contact.id)}
-                className="flex items-center gap-1.5 rounded-lg bg-navy/8 px-3 py-1.5 text-xs font-medium text-navy transition-colors hover:bg-navy/15"
+                className="flex items-center gap-1.5 rounded-lg bg-navy/8 px-3 py-1.5 font-display text-xs font-medium uppercase text-navy transition-colors hover:bg-navy/15"
               >
                 <Handshake className="h-3 w-3" />
                 log collab
@@ -554,7 +554,7 @@ function AddContactForm({
               <button
                 key={c.id}
                 onClick={() => setCategory(c.id)}
-                className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-all ${
+                className={`rounded-full px-2.5 py-1 font-display text-[11px] font-medium uppercase transition-all ${
                   category === c.id
                     ? "text-white"
                     : "bg-secondary text-muted-foreground hover:text-foreground"
@@ -604,13 +604,13 @@ function AddContactForm({
           <button
             onClick={handleSubmit}
             disabled={(!brand.trim() && !name.trim()) || creating}
-            className="rounded-lg bg-navy px-4 py-1.5 text-xs font-medium text-white transition-opacity disabled:opacity-30"
+            className="rounded-lg bg-navy px-4 py-1.5 font-display text-xs font-medium uppercase text-white transition-opacity disabled:opacity-30"
           >
             {creating ? "adding..." : "add contact"}
           </button>
           <button
             onClick={onCancel}
-            className="rounded-lg px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-lg px-3 py-1.5 font-display text-xs uppercase text-muted-foreground transition-colors hover:text-foreground"
           >
             cancel
           </button>
@@ -700,7 +700,7 @@ export function ContactDirectory({
   return (
     <div className="space-y-6">
       {/* Helper text */}
-      <p className="text-center text-sm text-muted-foreground">
+      <p className="text-center font-display text-sm uppercase text-muted-foreground">
         partners, sponsors, and contacts you&apos;ve worked with or want to.
         <br className="hidden sm:block" />
         {" "}filter by category, track collaborations, and find the right people
@@ -720,7 +720,7 @@ export function ContactDirectory({
         </div>
         <button
           onClick={() => setAdding(!adding)}
-          className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-xs font-medium transition-all ${
+          className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 font-display text-xs font-medium uppercase transition-all ${
             adding
               ? "bg-secondary text-muted-foreground"
               : "bg-navy text-white"
@@ -739,7 +739,7 @@ export function ContactDirectory({
       <div className="flex flex-wrap gap-1.5">
         <button
           onClick={() => setFilterCategory(null)}
-          className={`rounded-full px-3 py-1 text-[11px] font-medium transition-all ${
+          className={`rounded-full px-3 py-1 font-display text-[11px] font-medium uppercase transition-all ${
             filterCategory === null
               ? "bg-navy text-white"
               : "bg-secondary text-muted-foreground hover:text-foreground"
@@ -757,7 +757,7 @@ export function ContactDirectory({
               onClick={() =>
                 setFilterCategory(filterCategory === c.id ? null : c.id)
               }
-              className={`rounded-full px-3 py-1 text-[11px] font-medium transition-all ${
+              className={`rounded-full px-3 py-1 font-display text-[11px] font-medium uppercase transition-all ${
                 filterCategory === c.id
                   ? "text-white"
                   : "bg-secondary text-muted-foreground hover:text-foreground"
@@ -784,7 +784,7 @@ export function ContactDirectory({
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary">
             <Users className="h-6 w-6 text-muted-foreground" />
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="font-display text-sm uppercase text-muted-foreground">
             {contacts.length === 0
               ? "no contacts yet — add your first partner above"
               : "no contacts match your search"}
