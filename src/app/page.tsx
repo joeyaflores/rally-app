@@ -63,8 +63,8 @@ export default async function Home() {
       <section>
         <h2 className="mb-4 font-display text-sm font-medium uppercase tracking-widest text-muted-foreground">
           {config.terms.community}
-          <span className="ml-2 normal-case tracking-normal text-muted-foreground/50 max-sm:mt-0.5 max-sm:block max-sm:ml-0">
-            {data.platformPrevMonth.toLowerCase()} → {data.platformMonth.toLowerCase()}
+          <span className="ml-2 tracking-normal text-muted-foreground/50 max-sm:mt-0.5 max-sm:block max-sm:ml-0">
+            {data.platformPrevMonth} → {data.platformMonth}
             <span className="mx-1.5 text-muted-foreground/20">·</span>
             <span className="text-muted-foreground/30">
               updated {data.lastUpdatedShort}
@@ -182,8 +182,8 @@ export default async function Home() {
         </Suspense>
 
         {/* Footer */}
-        <footer className="border-t border-border/50 pb-8 pt-6 text-center text-xs text-muted-foreground">
-          <span className="font-display">{brand.name}</span> llc &middot; {brand.location}
+        <footer className="border-t border-border/50 pb-8 pt-6 text-center font-display text-xs uppercase tracking-widest text-muted-foreground/40">
+          {brand.name} llc &middot; {brand.location}
         </footer>
       </main>
     </div>

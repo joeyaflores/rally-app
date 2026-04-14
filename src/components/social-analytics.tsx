@@ -248,7 +248,7 @@ export function SocialAnalytics({
         <div className="relative flex items-center justify-between px-5 py-4 sm:px-6">
           <div>
             <p className="text-[11px] font-medium text-white/50 sm:text-xs">
-              neighbors
+              runners
             </p>
             <div className="mt-0.5 flex items-baseline gap-2">
               <p className="font-stat text-4xl tracking-wide text-white sm:text-5xl">

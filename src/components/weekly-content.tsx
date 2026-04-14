@@ -65,10 +65,10 @@ export function WeeklyContent({ posts }: { posts: ContentPost[] }) {
           href="/calendar"
           className="group block rounded-2xl border border-dashed border-border/40 bg-white/50 px-5 py-5 text-center transition-all hover:border-navy/20 hover:bg-white"
         >
-          <p className="text-sm text-muted-foreground/40">
+          <p className="font-display text-sm font-medium uppercase text-muted-foreground/40">
             no content planned this week
           </p>
-          <p className="mt-1 text-xs text-muted-foreground/30 transition-colors group-hover:text-navy/50">
+          <p className="mt-1 font-display text-xs uppercase text-muted-foreground/30 transition-colors group-hover:text-navy/50">
             open calendar &rarr;
           </p>
         </Link>
@@ -88,7 +88,7 @@ export function WeeklyContent({ posts }: { posts: ContentPost[] }) {
         </h2>
         <Link
           href="/calendar"
-          className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-navy"
+          className="flex items-center gap-1 font-display text-xs uppercase text-muted-foreground transition-colors hover:text-navy"
         >
           calendar
           <ArrowRight className="h-3 w-3" />

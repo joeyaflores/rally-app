@@ -511,10 +511,10 @@ export function ContentCalendar({
         </button>
 
         <div className="text-center">
-          <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            {MONTH_NAMES[month].toLowerCase()}
+          <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-navy sm:text-4xl">
+            {MONTH_NAMES[month]}
           </h2>
-          <p className="text-sm text-muted-foreground">{year}</p>
+          <p className="font-display text-sm uppercase text-muted-foreground">{year}</p>
         </div>
 
         <button
@@ -529,7 +529,7 @@ export function ContentCalendar({
       {/* ─── Month Stats ─── */}
       {totalPosts > 0 && (
         <div className="animate-fade-up flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-white px-5 py-3 shadow-sm">
-          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+          <div className="flex items-center gap-3 font-display text-sm uppercase text-muted-foreground">
             <span>
               <span className="font-stat text-lg tracking-wide text-navy">
                 {totalPosts}
@@ -544,7 +544,7 @@ export function ContentCalendar({
               posted
             </span>
           </div>
-          <div className="flex items-center gap-3 text-xs text-muted-foreground">
+          <div className="flex items-center gap-3 font-display text-xs uppercase text-muted-foreground">
             {igCount > 0 && (
               <span className="flex items-center gap-1.5">
                 <span
@@ -583,7 +583,7 @@ export function ContentCalendar({
               return next.size > 0 ? next : prev;
             })
           }
-          className={`rounded-full px-3 py-1 text-[11px] font-medium transition-all ${
+          className={`rounded-full px-3 py-1 font-display text-[11px] font-medium uppercase transition-all ${
             scopeFilters.has("club")
               ? "bg-navy text-white"
               : "bg-secondary text-muted-foreground hover:text-foreground"
@@ -601,7 +601,7 @@ export function ContentCalendar({
                 return next.size > 0 ? next : prev;
               })
             }
-            className={`rounded-full px-3 py-1 text-[11px] font-medium transition-all ${
+            className={`rounded-full px-3 py-1 font-display text-[11px] font-medium uppercase transition-all ${
               scopeFilters.has(c.id)
                 ? "text-white"
                 : "bg-secondary text-muted-foreground hover:text-foreground"
@@ -664,7 +664,7 @@ export function ContentCalendar({
                 <div className="flex items-center justify-between">
                   <span
                     className={`
-                      inline-flex items-center justify-center text-xs
+                      inline-flex items-center justify-center font-display text-xs
                       ${isToday ? "h-6 w-6 rounded-full bg-navy font-medium text-white" : "h-6 w-6 font-medium text-muted-foreground"}
                     `}
                   >
@@ -675,7 +675,7 @@ export function ContentCalendar({
                     {isRunDay && (
                       <span
                         className={`
-                          hidden text-[9px] font-medium sm:inline
+                          hidden font-display text-[9px] font-medium uppercase sm:inline
                           ${day.dow === 1 ? "text-navy/40" : "text-warm/50"}
                         `}
                       >
@@ -711,7 +711,7 @@ export function ContentCalendar({
                     />
                   ))}
                   {dayPosts.length > 3 && (
-                    <span className="block text-[9px] text-muted-foreground/50 sm:text-[10px]">
+                    <span className="block font-display text-[9px] uppercase text-muted-foreground/50 sm:text-[10px]">
                       +{dayPosts.length - 3} more
                     </span>
                   )}
@@ -734,10 +734,10 @@ export function ContentCalendar({
               {/* Panel header */}
               <div className="mb-4 flex items-center justify-between">
                 <div>
-                  <h3 className="font-display text-lg tracking-tight text-navy">
+                  <h3 className="font-display text-lg font-bold uppercase tracking-wide text-navy">
                     {editing ? "edit post" : "new post"}
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="font-display text-sm uppercase text-muted-foreground">
                     {formatDateFriendly(selectedDate)}
                   </p>
                 </div>
@@ -786,7 +786,7 @@ export function ContentCalendar({
               <div className="mt-4 space-y-3">
                 {/* Platform — multi-select when creating, single when editing */}
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] text-muted-foreground/60">
+                  <span className="font-display text-[11px] uppercase text-muted-foreground/60">
                     platform{!editing && formPlatforms.length > 1 ? "s" : ""}
                   </span>
                   <div className="flex items-center gap-1.5">
@@ -830,14 +830,14 @@ export function ContentCalendar({
 
                 {/* Status */}
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] text-muted-foreground/60">status</span>
+                  <span className="font-display text-[11px] uppercase text-muted-foreground/60">status</span>
                   <div className="flex items-center gap-1.5">
                     {STATUSES.map((s) => (
                       <button
                         key={s.id}
                         onClick={() => setFormStatus(s.id)}
                         className={`
-                          rounded-lg px-3 py-1.5 text-xs font-medium transition-all
+                          rounded-lg px-3 py-1.5 font-display text-xs font-medium uppercase transition-all
                           ${formStatus === s.id ? "bg-navy text-white" : "bg-secondary/50 text-muted-foreground hover:bg-secondary"}
                         `}
                       >
@@ -849,14 +849,14 @@ export function ContentCalendar({
 
                 {/* Creator */}
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] text-muted-foreground/60">creator</span>
+                  <span className="font-display text-[11px] uppercase text-muted-foreground/60">creator</span>
                   <div className="flex items-center gap-1.5">
                     {CREATORS.map((c) => (
                       <button
                         key={c.id}
                         onClick={() => setFormCreator(formCreator === c.id ? "" : c.id)}
                         className={`
-                          rounded-lg px-3 py-1.5 text-xs font-medium transition-all
+                          rounded-lg px-3 py-1.5 font-display text-xs font-medium uppercase transition-all
                           ${formCreator === c.id ? "text-white shadow-sm" : "bg-secondary/50 text-muted-foreground hover:bg-secondary"}
                         `}
                         style={formCreator === c.id ? { backgroundColor: c.color } : undefined}
@@ -869,11 +869,11 @@ export function ContentCalendar({
 
                 {/* Scope */}
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] text-muted-foreground/60">scope</span>
+                  <span className="font-display text-[11px] uppercase text-muted-foreground/60">scope</span>
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => setFormScope("club")}
-                      className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                      className={`rounded-lg px-3 py-1.5 font-display text-xs font-medium uppercase transition-all ${
                         formScope === "club"
                           ? "bg-navy text-white"
                           : "bg-secondary/50 text-muted-foreground hover:bg-secondary"
@@ -883,7 +883,7 @@ export function ContentCalendar({
                     </button>
                     <button
                       onClick={() => setFormScope("personal")}
-                      className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                      className={`rounded-lg px-3 py-1.5 font-display text-xs font-medium uppercase transition-all ${
                         formScope === "personal"
                           ? "bg-warm text-white"
                           : "bg-secondary/50 text-muted-foreground hover:bg-secondary"
@@ -900,7 +900,7 @@ export function ContentCalendar({
                 <button
                   onClick={handleSave}
                   disabled={isPending || (!formTitle.trim() && !editing)}
-                  className="inline-flex items-center gap-2 rounded-xl bg-navy px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-navy-light disabled:opacity-40"
+                  className="inline-flex items-center gap-2 rounded-xl bg-navy px-5 py-2.5 font-display text-sm font-medium uppercase text-white transition-all hover:bg-navy-light disabled:opacity-40"
                 >
                   {editing ? "update" : "add post"}
                 </button>
@@ -1006,11 +1006,11 @@ export function ContentCalendar({
             <Plus className="h-5 w-5 text-muted-foreground" />
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">
+            <p className="font-display text-sm uppercase text-muted-foreground">
               no content planned for{" "}
-              {MONTH_NAMES[month].toLowerCase()} yet
+              {MONTH_NAMES[month]} yet
             </p>
-            <p className="mt-1 text-xs text-muted-foreground/50">
+            <p className="mt-1 font-display text-xs uppercase text-muted-foreground/50">
               click any day to start planning
             </p>
           </div>

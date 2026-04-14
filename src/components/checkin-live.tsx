@@ -508,7 +508,7 @@ export function CheckinLive({
             <h3 className="font-display text-sm font-medium uppercase tracking-widest text-muted-foreground">
               check-in sessions
             </h3>
-            <p className="mt-1 text-[11px] text-muted-foreground/60">
+            <p className="mt-1 font-display text-[11px] uppercase text-muted-foreground/60">
               open a session to start collecting check-ins at your run
             </p>
           </div>

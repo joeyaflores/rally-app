@@ -94,19 +94,19 @@ export function RunnersList({ initial }: { initial: Runner[] }) {
         <div className="mb-5 grid grid-cols-4 gap-3">
           <div className="rounded-xl border border-border/50 bg-white px-3 py-3 text-center shadow-sm">
             <p className="font-stat text-2xl tabular-nums tracking-wide text-navy">{stats.total}</p>
-            <p className="text-[10px] text-muted-foreground/50">total</p>
+            <p className="font-display text-[10px] uppercase text-muted-foreground/50">total</p>
           </div>
           <div className="rounded-xl border border-border/50 bg-white px-3 py-3 text-center shadow-sm">
             <p className="font-stat text-2xl tabular-nums tracking-wide text-navy">{stats.checkedIn}</p>
-            <p className="text-[10px] text-muted-foreground/50">showed up</p>
+            <p className="font-display text-[10px] uppercase text-muted-foreground/50">showed up</p>
           </div>
           <div className="rounded-xl border border-border/50 bg-white px-3 py-3 text-center shadow-sm">
             <p className="font-stat text-2xl tabular-nums tracking-wide text-navy">{stats.regulars}</p>
-            <p className="text-[10px] text-muted-foreground/50">regulars</p>
+            <p className="font-display text-[10px] uppercase text-muted-foreground/50">regulars</p>
           </div>
           <div className="rounded-xl border border-border/50 bg-white px-3 py-3 text-center shadow-sm">
             <p className="font-stat text-2xl tabular-nums tracking-wide text-navy">{stats.newThisMonth}</p>
-            <p className="text-[10px] text-muted-foreground/50">new this mo</p>
+            <p className="font-display text-[10px] uppercase text-muted-foreground/50">new this mo</p>
           </div>
         </div>
       )}
@@ -229,11 +229,11 @@ export function RunnersList({ initial }: { initial: Runner[] }) {
             })}
           </div>
         ) : stats.total > 0 ? (
-          <p className="px-5 py-6 text-center text-sm text-muted-foreground">
+          <p className="px-5 py-6 text-center font-display text-sm uppercase text-muted-foreground">
             no matches for &ldquo;{search}&rdquo;
           </p>
         ) : (
-          <p className="px-5 py-6 text-center text-sm text-muted-foreground">
+          <p className="px-5 py-6 text-center font-display text-sm uppercase text-muted-foreground">
             no {config.terms.member} yet &mdash; they&apos;ll appear after check-in or signing up at /join
           </p>
         )}

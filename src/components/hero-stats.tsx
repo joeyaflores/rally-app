@@ -50,7 +50,7 @@ export function HeroStats({ data }: { data: DashboardData }) {
         <h2 className="font-display text-sm font-medium uppercase tracking-widest text-muted-foreground">
           {month}
         </h2>
-        <span className="text-[11px] text-muted-foreground/50">
+        <span className="font-display text-[11px] uppercase text-muted-foreground/50">
           updated {data.lastUpdatedShort}
         </span>
       </div>
@@ -64,7 +64,7 @@ export function HeroStats({ data }: { data: DashboardData }) {
               key={stat.label}
               className={`p-4 ${i >= 2 ? "border-t border-white/[0.08]" : ""} ${i % 2 === 1 ? "border-l border-white/[0.08]" : ""}`}
             >
-              <p className="text-[11px] font-medium text-white/50">
+              <p className="font-display text-[11px] font-medium uppercase text-white/50">
                 {stat.label}
               </p>
               <div className="mt-1 flex items-baseline gap-1.5">
@@ -94,12 +94,12 @@ export function HeroStats({ data }: { data: DashboardData }) {
           >
             <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/5" />
             <div className="absolute -right-1 -top-1 h-12 w-12 rounded-full bg-white/5" />
-            <p className="text-sm font-medium text-white/70">{stat.label}</p>
+            <p className="font-display text-sm font-medium uppercase text-white/70">{stat.label}</p>
             <p className="mt-1 font-stat text-5xl tracking-wide text-white xl:text-6xl">
               {stat.value}
             </p>
             <div className="mt-2 flex items-center gap-2">
-              <span className="text-xs text-white/50">{stat.subtext}</span>
+              <span className="font-display text-xs uppercase text-white/50">{stat.subtext}</span>
               {stat.trend !== null ? (
                 <TrendBadge
                   value={stat.trend}

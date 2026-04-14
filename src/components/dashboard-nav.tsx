@@ -34,7 +34,7 @@ export function DashboardNav() {
           className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs text-muted-foreground transition-[color] hover:text-navy"
         >
           <item.icon className="h-3.5 w-3.5" aria-hidden="true" />
-          <span className="font-display tracking-wide">{item.label}</span>
+          <span className="font-display uppercase tracking-wide">{item.label}</span>
         </Link>
       ))}
     </nav>

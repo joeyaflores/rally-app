@@ -44,7 +44,7 @@ export function NeighborsTabs({
               role="tab"
               aria-selected={active === tab.key}
               onClick={() => setActive(tab.key)}
-              className={`flex items-center gap-2 rounded-lg px-5 py-2 font-display text-sm tracking-wide transition-colors ${
+              className={`flex items-center gap-2 rounded-lg px-5 py-2 font-display text-sm uppercase tracking-wide transition-colors ${
                 active === tab.key
                   ? "bg-navy text-white shadow-sm"
                   : "text-muted-foreground hover:text-foreground"

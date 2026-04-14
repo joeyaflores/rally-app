@@ -43,7 +43,7 @@ export function QuickAdd() {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder="new note..."
-            className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground/50"
+            className="min-w-0 flex-1 bg-transparent font-display text-base uppercase outline-none placeholder:text-muted-foreground/50"
             disabled={adding}
           />
 
@@ -61,7 +61,7 @@ export function QuickAdd() {
             <button
               type="submit"
               disabled={adding}
-              className="shrink-0 rounded-lg bg-navy px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-navy/90 disabled:opacity-50"
+              className="shrink-0 rounded-lg bg-navy px-3 py-1.5 font-display text-xs font-medium uppercase text-white transition-colors hover:bg-navy/90 disabled:opacity-50"
             >
               add
             </button>
@@ -72,7 +72,7 @@ export function QuickAdd() {
         {dueDate && (
           <div className="flex items-center justify-between border-t border-border/30 px-4 py-2.5 sm:px-5">
             <DatePicker value={dueDate} onChange={(d) => setDueDate(d)}>
-              <span className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-navy/5 px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-navy/10">
+              <span className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-navy/5 px-2.5 py-1 font-display text-xs font-medium uppercase text-navy transition-colors hover:bg-navy/10">
                 <CalendarDays className="h-3 w-3" />
                 {formatChip(dueDate)}
                 <button
@@ -92,7 +92,7 @@ export function QuickAdd() {
               <button
                 type="submit"
                 disabled={adding}
-                className="shrink-0 rounded-lg bg-navy px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-navy/90 disabled:opacity-50"
+                className="shrink-0 rounded-lg bg-navy px-3 py-1.5 font-display text-xs font-medium uppercase text-white transition-colors hover:bg-navy/90 disabled:opacity-50"
               >
                 add
               </button>
@@ -103,7 +103,7 @@ export function QuickAdd() {
 
       {/* Hint */}
       {hasText && !dueDate && (
-        <p className="mt-2 px-4 text-[11px] text-muted-foreground/50 sm:px-5">
+        <p className="mt-2 px-4 font-display text-[11px] uppercase text-muted-foreground/50 sm:px-5">
           tap the calendar to add a due date — it&apos;ll show up in upcoming tasks
         </p>
       )}

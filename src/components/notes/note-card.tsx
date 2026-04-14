@@ -208,21 +208,21 @@ export function NoteCard({ note }: { note: Note }) {
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
               onClick={(e) => e.stopPropagation()}
-              className="w-full bg-transparent font-display text-base tracking-tight text-navy outline-none"
+              className="w-full bg-transparent font-display text-base font-bold uppercase tracking-wide text-navy outline-none"
               placeholder="untitled"
             />
           ) : (
-            <p className="truncate font-display text-base tracking-tight text-navy">
+            <p className="truncate font-display text-base font-bold uppercase tracking-wide text-navy">
               {title || "untitled"}
             </p>
           )}
           {!expanded && body && (
-            <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">
+            <p className="mt-0.5 line-clamp-2 font-display text-sm text-muted-foreground">
               {body}
             </p>
           )}
           {!expanded && hasChecklist && (
-            <p className="mt-1.5 text-xs text-muted-foreground">
+            <p className="mt-1.5 font-display text-xs uppercase text-muted-foreground">
               {checkedCount}/{totalCount} done
             </p>
           )}
@@ -264,7 +264,7 @@ export function NoteCard({ note }: { note: Note }) {
           <div className="mt-4 flex items-center justify-between border-t border-border/50 pt-3">
             <button
               onClick={addItem}
-              className="flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-navy"
+              className="flex items-center gap-1.5 font-display text-xs uppercase text-muted-foreground transition-colors hover:text-navy"
             >
               <Plus className="h-3.5 w-3.5" />
               add checklist item

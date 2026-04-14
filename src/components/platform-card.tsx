@@ -68,7 +68,7 @@ export function PlatformCard({
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+                className="font-display text-xs text-muted-foreground transition-colors hover:text-foreground"
                 onClick={(e) => e.stopPropagation()}
               >
                 @{handle}
@@ -92,8 +92,8 @@ export function PlatformCard({
             <span className="font-stat text-xl tracking-wide">
               {formatNumber(primary.current)}
             </span>
-            <span className="text-xs text-muted-foreground">
-              {primary.label.toLowerCase()}
+            <span className="font-display text-xs uppercase text-muted-foreground">
+              {primary.label}
             </span>
             <TrendBadge value={primaryChange} />
           </div>
@@ -102,7 +102,7 @@ export function PlatformCard({
               <span className="font-stat text-sm tracking-wide">
                 {engagementRate.current.toFixed(1)}%
               </span>
-              <span className="text-[10px] text-muted-foreground">eng</span>
+              <span className="font-display text-[10px] uppercase text-muted-foreground">eng</span>
             </div>
           ) : null}
         </div>
@@ -128,7 +128,7 @@ export function PlatformCard({
                   key={metric.label}
                   className="flex items-center justify-between"
                 >
-                  <span className="text-sm text-muted-foreground">
+                  <span className="font-display text-sm uppercase text-muted-foreground">
                     {metric.label}
                   </span>
                   <div className="flex items-center gap-2">
@@ -145,7 +145,7 @@ export function PlatformCard({
             {engagementRate ? (
               <div className="mt-4 rounded-lg bg-secondary/50 px-3 py-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-muted-foreground">
+                  <span className="font-display text-xs font-medium uppercase text-muted-foreground">
                     Engagement Rate
                   </span>
                   <div className="flex items-center gap-2">

@@ -15,7 +15,7 @@ export default async function BoardsPage() {
       <PageHeader title="boards" backHref="/" />
 
       <main className="animate-fade-up relative z-10 mx-auto max-w-6xl space-y-6 px-6 pb-20 pt-8 motion-reduce:animate-none sm:pb-8">
-        <p className="text-center text-sm text-muted-foreground">
+        <p className="text-center font-display text-sm uppercase text-muted-foreground">
           collect inspo, links, and notes for events, campaigns, or merch drops.
           <br className="hidden sm:block" />
           {" "}click into any board to add images, paste links, connect content posts, or jot ideas.
@@ -28,7 +28,7 @@ export default async function BoardsPage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary">
               <LayoutGrid className="h-6 w-6 text-muted-foreground" />
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="font-display text-sm uppercase text-muted-foreground">
               no boards yet &mdash; create one above
             </p>
           </div>

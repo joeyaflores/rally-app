@@ -40,7 +40,7 @@ export function CreateBoardForm() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-border/40 bg-white/50 py-4 text-sm text-muted-foreground/50 transition-all hover:border-navy/20 hover:bg-white hover:text-muted-foreground"
+        className="flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-border/40 bg-white/50 py-4 font-display text-sm uppercase text-muted-foreground/50 transition-all hover:border-navy/20 hover:bg-white hover:text-muted-foreground"
       >
         <Plus className="h-4 w-4" />
         new board
@@ -57,7 +57,7 @@ export function CreateBoardForm() {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="board name"
-        className="mb-4 w-full bg-transparent font-display text-xl tracking-tight text-navy outline-none placeholder:text-navy/20"
+        className="mb-4 w-full bg-transparent font-display text-xl font-bold uppercase tracking-wide text-navy outline-none placeholder:text-navy/20"
         autoFocus
       />
 
@@ -68,7 +68,7 @@ export function CreateBoardForm() {
             key={t.id}
             type="button"
             onClick={() => setType(t.id)}
-            className="rounded-full px-3 py-1 text-xs font-medium transition-all"
+            className="rounded-full px-3 py-1 font-display text-xs font-medium uppercase transition-all"
             style={{
               backgroundColor:
                 type === t.id ? t.color : "transparent",
@@ -84,7 +84,7 @@ export function CreateBoardForm() {
       {/* Event date */}
       {type === "event" && (
         <div className="mb-4">
-          <label className="mb-1 block text-[11px] text-muted-foreground/60">
+          <label className="mb-1 block font-display text-[11px] uppercase text-muted-foreground/60">
             event date
           </label>
           <input
@@ -100,7 +100,7 @@ export function CreateBoardForm() {
         <button
           type="submit"
           disabled={creating}
-          className="rounded-xl bg-navy px-5 py-2 text-sm font-medium text-white transition-opacity disabled:opacity-50"
+          className="rounded-xl bg-navy px-5 py-2 font-display text-sm font-medium uppercase text-white transition-opacity disabled:opacity-50"
         >
           {creating ? "creating..." : "create board"}
         </button>
@@ -112,7 +112,7 @@ export function CreateBoardForm() {
             setType("general");
             setEventDate("");
           }}
-          className="rounded-xl px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary"
+          className="rounded-xl px-4 py-2 font-display text-sm uppercase text-muted-foreground transition-colors hover:bg-secondary"
         >
           cancel
         </button>

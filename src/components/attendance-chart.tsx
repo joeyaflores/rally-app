@@ -79,7 +79,7 @@ export function AttendanceChart({ events }: { events: Event[] }) {
             <CardTitle className="font-display text-lg tracking-tight">
               who showed up
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="font-display uppercase">
               {totalRuns} runs tracked · {avg} avg
             </CardDescription>
           </div>
@@ -87,7 +87,7 @@ export function AttendanceChart({ events }: { events: Event[] }) {
             <p className="font-stat text-4xl tracking-wide text-navy">
               {totalAttendance.toLocaleString()}
             </p>
-            <p className="text-xs text-muted-foreground">total neighbors</p>
+            <p className="font-display text-xs uppercase text-muted-foreground">total runners</p>
           </div>
         </div>
       </CardHeader>
@@ -157,7 +157,7 @@ export function AttendanceChart({ events }: { events: Event[] }) {
                 </Bar>
               </BarChart>
             </ChartContainer>
-            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 font-display text-xs uppercase text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <span className="h-2.5 w-2.5 rounded-sm bg-navy" />
                 monday social run
@@ -177,13 +177,13 @@ export function AttendanceChart({ events }: { events: Event[] }) {
               <div className="mt-4 grid grid-cols-2 gap-3">
                 {mondays.length > 0 && (
                   <div className="rounded-lg bg-secondary/50 px-3 py-2.5">
-                    <p className="text-xs text-muted-foreground">monday avg</p>
+                    <p className="font-display text-xs uppercase text-muted-foreground">monday avg</p>
                     <p className="font-stat text-2xl tracking-wide text-navy">{monAvg}</p>
                   </div>
                 )}
                 {saturdays.length > 0 && (
                   <div className="rounded-lg bg-secondary/50 px-3 py-2.5">
-                    <p className="text-xs text-muted-foreground">saturday avg</p>
+                    <p className="font-display text-xs uppercase text-muted-foreground">saturday avg</p>
                     <p className="font-stat text-2xl tracking-wide" style={{ color: "#7B93DB" }}>{satAvg}</p>
                   </div>
                 )}
@@ -191,7 +191,7 @@ export function AttendanceChart({ events }: { events: Event[] }) {
             )}
           </>
         ) : (
-          <p className="py-8 text-center text-sm text-muted-foreground">
+          <p className="py-8 text-center font-display text-sm uppercase text-muted-foreground">
             no attendance logged yet — add runs on the admin page
           </p>
         )}

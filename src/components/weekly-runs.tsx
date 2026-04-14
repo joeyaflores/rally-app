@@ -13,10 +13,10 @@ export function WeeklyRuns() {
       <CardHeader>
         <div className="flex items-start justify-between gap-3">
           <div>
-            <CardTitle className="font-display text-lg tracking-tight">
+            <CardTitle className="font-display text-lg font-bold uppercase tracking-wide">
               weekly runs
             </CardTitle>
-            <p className="text-sm text-muted-foreground">
+            <p className="font-display text-sm uppercase text-muted-foreground">
               {config.terms.welcome} — show up as you are
             </p>
           </div>
@@ -33,21 +33,21 @@ export function WeeklyRuns() {
                 : "border-l-warm"
             }`}
           >
-            <p className="font-display text-base tracking-tight text-navy">
-              {run.name.toLowerCase()}
+            <p className="font-display text-base font-bold uppercase tracking-wide text-navy">
+              {run.name}
             </p>
             <div className="mt-2.5 space-y-1.5">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 font-display text-sm uppercase text-muted-foreground">
                 <Clock className="h-3.5 w-3.5 shrink-0" />
                 <span>
                   {run.day}s at {run.time}
                 </span>
               </div>
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
+              <div className="flex items-start gap-2 font-display text-sm uppercase text-muted-foreground">
                 <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                 <span>{run.location}</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 font-display text-sm uppercase text-muted-foreground">
                 <Route className="h-3.5 w-3.5 shrink-0" />
                 <span>{run.distance}</span>
               </div>

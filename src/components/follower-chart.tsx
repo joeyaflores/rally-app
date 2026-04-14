@@ -59,7 +59,7 @@ export function FollowerChart({ data }: { data: FollowerDataPoint[] }) {
             <CardTitle className="font-display text-lg tracking-tight">
               community growth
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="font-display uppercase">
               total followers across all platforms
             </CardDescription>
           </div>
@@ -67,7 +67,7 @@ export function FollowerChart({ data }: { data: FollowerDataPoint[] }) {
             <p className="font-stat text-4xl tracking-wide text-navy">
               {formatNumber(latest.total)}
             </p>
-            <p className="text-xs text-muted-foreground">total neighbors</p>
+            <p className="font-display text-xs uppercase text-muted-foreground">total runners</p>
           </div>
         </div>
       </CardHeader>
@@ -141,7 +141,7 @@ export function FollowerChart({ data }: { data: FollowerDataPoint[] }) {
             />
           </AreaChart>
         </ChartContainer>
-        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 font-display text-xs uppercase text-muted-foreground">
           <span className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: "#E1306C" }} />
             instagram

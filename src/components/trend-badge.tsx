@@ -16,7 +16,7 @@ export function TrendBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-medium",
+        "inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 font-display text-xs font-medium uppercase",
         isPositive && "bg-emerald-50 text-emerald-700",
         !isPositive && !isNeutral && "bg-red-50 text-red-700",
         isNeutral && "bg-zinc-100 text-zinc-500",

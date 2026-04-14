@@ -96,10 +96,10 @@ export function BoardsPreview({ boards }: { boards: BoardWithMeta[] }) {
           href="/boards"
           className="group block rounded-2xl border border-dashed border-border/40 bg-white/50 px-5 py-5 text-center transition-all hover:border-navy/20 hover:bg-white"
         >
-          <p className="text-sm text-muted-foreground/40">
+          <p className="font-display text-sm font-medium uppercase text-muted-foreground/40">
             no active boards yet
           </p>
-          <p className="mt-1 text-xs text-muted-foreground/30 transition-colors group-hover:text-navy/50">
+          <p className="mt-1 font-display text-xs uppercase text-muted-foreground/30 transition-colors group-hover:text-navy/50">
             create a board &rarr;
           </p>
         </Link>
@@ -119,7 +119,7 @@ export function BoardsPreview({ boards }: { boards: BoardWithMeta[] }) {
         </h2>
         <Link
           href="/boards"
-          className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-navy"
+          className="flex items-center gap-1 font-display text-xs uppercase text-muted-foreground transition-colors hover:text-navy"
         >
           all boards
           <ArrowRight className="h-3 w-3" />

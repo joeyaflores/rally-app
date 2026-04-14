@@ -45,7 +45,7 @@ export function DashboardTabs({
           <button
             key={tab.id}
             onClick={() => setTab(tab.id)}
-            className={`relative rounded-full px-4 py-1.5 text-xs font-medium tracking-wide transition-[color,background-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30 ${
+            className={`relative rounded-full px-4 py-1.5 font-display text-xs font-medium uppercase tracking-wide transition-[color,background-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30 ${
               activeTab === tab.id
                 ? "bg-navy text-white shadow-sm"
                 : "text-muted-foreground hover:text-foreground"

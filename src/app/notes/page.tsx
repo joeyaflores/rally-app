@@ -24,7 +24,7 @@ export default async function NotesPage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary">
               <StickyNote className="h-6 w-6 text-muted-foreground" />
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="font-display text-sm uppercase text-muted-foreground">
               no notes yet — type above to create one
             </p>
           </div>
