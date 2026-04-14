@@ -92,7 +92,6 @@ export interface RallyConfig {
     gold: string;
     background: string;
   };
-  appleIconLetter: string;
   heroImages: RallyHeroImage[];
 
   // ─── Page Copy ───
@@ -165,13 +164,12 @@ const config: RallyConfig = {
       time: "7:30 PM",
       timeSplit: { value: "7:30", period: "PM" },
       timeOfDay: "evening",
-      location: "Riverside Park, Fort Worth, TX",
+      location: "501 Oakhurst Scenic Dr, Fort Worth, TX 76111",
       locationShort: "Riverside Park",
-      mapUrl: "https://maps.apple.com/?address=Riverside+Park,+Fort+Worth,+TX",
+      mapUrl: "https://maps.apple.com/?q=Riverside+Park&address=501+Oakhurst+Scenic+Dr,+Fort+Worth,+TX+76111",
       distance: "3 miles",
       distanceShort: "3 mi \u00b7 Riverside Park",
-      description:
-        "The weekly run. Three miles, all paces, all faces. Stick around after for the community hang.",
+      description: "",
     },
   ],
 
@@ -186,7 +184,7 @@ const config: RallyConfig = {
     },
     strava: {
       handle: "Más Millas Run Club",
-      url: "https://strava.com/clubs/masmillasrunclub",
+      url: "https://strava.app.link/qlm3aZfWk2b",
     },
   },
 
@@ -210,33 +208,14 @@ const config: RallyConfig = {
     background: "#F8F5F0",     // warm sand
   },
 
-  appleIconLetter: "M",
-
-  heroImages: [
-    {
-      src: "/hero-big-group.webp",
-      alt: "Más Millas runners gathered at Riverside Park",
-      position: "center 65%",
-    },
-    {
-      src: "/hero-post-race.webp",
-      alt: "Celebrating together after a Tuesday night run",
-      position: "center 35%",
-    },
-    {
-      src: "/hero-cheer-zone.webp",
-      alt: "The community cheering each other on",
-      position: "center center",
-    },
-  ],
+  heroImages: [],
 
   joinPage: {
     heroSubtitle: "everyone's welcome \u00b7 come run with us",
     eventsIntro:
       "One run a week at Riverside Park. All paces, all faces.",
     ctaHeading: "come run with us",
-    ctaBody:
-      "No sign-up, no membership fee. Meet us at Riverside Park on Tuesday nights and we'll take it from there.",
+    ctaBody: "",
     ctaButtonText: "follow along",
     ctaSecondaryText: "learn more",
     emailCaptureLabel: "Stay in the loop",

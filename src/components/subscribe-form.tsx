@@ -16,7 +16,7 @@ const SOCIALS = [
 function SocialLinks() {
   return (
     <div className="mt-3.5 flex items-center gap-2.5">
-      <span className="text-[0.7rem] text-white/35">or find us on</span>
+      <span className="font-display text-xs font-bold uppercase tracking-wider text-navy/40">or find us on</span>
       <div className="flex items-center gap-2">
         {SOCIALS.map(({ href, label, icon: Icon }) => (
           <a
@@ -25,7 +25,7 @@ function SocialLinks() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
-            className="text-white/45 transition-colors hover:text-white/70"
+            className="text-navy/50 transition-colors hover:text-navy"
           >
             <Icon className="h-3.5 w-3.5" />
           </a>
@@ -61,7 +61,7 @@ export function SubscribeForm() {
   if (state === "success") {
     return (
       <div>
-        <p className="font-display text-sm tracking-wide text-white/70">
+        <p className="font-display text-sm tracking-wide text-navy/70">
           {config.joinPage.successMessage}
         </p>
         <SocialLinks />
@@ -71,7 +71,7 @@ export function SubscribeForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <p className="mb-2.5 font-stat text-[0.55rem] tracking-[0.3em] uppercase text-white/40 sm:text-[0.65rem]">
+      <p className="mb-2.5 font-display text-xs font-bold uppercase tracking-[0.2em] text-navy/60 sm:text-sm">
         {config.joinPage.emailCaptureLabel}
       </p>
       {/* Honeypot — hidden from humans, filled by bots */}
@@ -98,18 +98,18 @@ export function SubscribeForm() {
           autoComplete="email"
           spellCheck={false}
           aria-label="Email address"
-          className="min-w-0 flex-1 rounded-xl border border-white/[0.08] bg-white/[0.06] px-4 py-2.5 text-sm text-white placeholder:text-white/35 outline-none transition-colors focus-visible:border-white/20 focus-visible:bg-white/[0.08] focus-visible:ring-1 focus-visible:ring-white/20"
+          className="min-w-0 flex-1 rounded-xl border border-border bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 outline-none transition-colors focus-visible:border-navy/30 focus-visible:ring-1 focus-visible:ring-navy/20"
         />
         <button
           type="submit"
           disabled={state === "loading"}
-          className="shrink-0 rounded-xl bg-white px-4 py-2.5 font-display text-sm tracking-wide text-navy transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0 sm:px-5"
+          className="shrink-0 rounded-xl bg-navy px-4 py-2.5 font-display text-sm uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0 sm:px-5"
         >
           {state === "loading" ? "\u2026" : "join"}
         </button>
       </div>
       {state === "error" && (
-        <p className="mt-1.5 text-xs text-red-300/70">{error}</p>
+        <p className="mt-1.5 text-xs text-danger">{error}</p>
       )}
       <SocialLinks />
     </form>
