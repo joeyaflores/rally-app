@@ -20,12 +20,14 @@ export function HeroSlideshow() {
   }, []);
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || IMAGES.length === 0) return;
     const id = setInterval(() => {
       setActive((i) => (i + 1) % IMAGES.length);
     }, CYCLE_MS);
     return () => clearInterval(id);
   }, [reducedMotion]);
+
+  if (IMAGES.length === 0) return null;
 
   return (
     <div className="absolute inset-0">

@@ -1,27 +1,11 @@
 import { ImageResponse } from "next/og";
 import { getReportPageData } from "@/lib/reports";
+import { getUnboundedFont } from "@/lib/og-fonts";
 import config from "@rally";
 
 export const runtime = "nodejs";
 export const contentType = "image/png";
 export const size = { width: 1200, height: 630 };
-
-// Cache fonts at module level — loaded once per process
-let fontCache: { display: ArrayBuffer; stat: ArrayBuffer } | null = null;
-
-async function getFonts() {
-  if (fontCache) return fontCache;
-  const [display, stat] = await Promise.all([
-    fetch(new URL("../../../fonts/made-mirage-bold.otf", import.meta.url)).then(
-      (r) => r.arrayBuffer()
-    ),
-    fetch(
-      "https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2"
-    ).then((r) => r.arrayBuffer()),
-  ]);
-  fontCache = { display, stat };
-  return fontCache;
-}
 
 export default async function OGImage({
   params,
@@ -29,11 +13,10 @@ export default async function OGImage({
   params: Promise<{ token: string }>;
 }) {
   const { token } = await params;
-  const [data, fonts] = await Promise.all([
+  const [data, fontData] = await Promise.all([
     getReportPageData(token),
-    getFonts(),
+    getUnboundedFont(),
   ]);
-  const { display: displayFont, stat: statFont } = fonts;
 
   if (!data) {
     return new ImageResponse(
@@ -57,7 +40,7 @@ export default async function OGImage({
       {
         ...size,
         fonts: [
-          { name: "Display", data: displayFont, style: "normal", weight: 700 },
+          { name: "Display", data: fontData, style: "normal", weight: 900 },
         ],
       }
     );
@@ -248,8 +231,8 @@ export default async function OGImage({
     {
       ...size,
       fonts: [
-        { name: "Display", data: displayFont, style: "normal", weight: 700 },
-        { name: "Stat", data: statFont, style: "normal", weight: 400 },
+        { name: "Display", data: fontData, style: "normal", weight: 900 },
+        { name: "Stat", data: fontData, style: "normal", weight: 400 },
       ],
     }
   );

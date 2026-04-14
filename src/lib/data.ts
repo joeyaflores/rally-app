@@ -44,8 +44,6 @@ export const events: { date: string; day: string; attendance: number }[] = [];
 
 export const partnerships: { name: string; type: string; status: "lead" | "active" | "completed"; description: string }[] = [];
 
-export { pctChange, formatNumber } from "./format";
-
 // --- Data layer ---
 
 import { EMPTY_IG, EMPTY_TT, MONTH_NAMES } from "./analytics-types";

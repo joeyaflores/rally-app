@@ -19,15 +19,13 @@ function ErrorContent() {
   return (
     <div className="w-full max-w-sm">
       <div className="mb-8 flex flex-col items-center gap-3">
-        <div className="relative">
-          <Image
-            src="/logo-icon.svg"
-            alt={config.fullName}
-            width={56}
-            height={56}
-            className="h-14 w-14 opacity-30 grayscale"
-          />
-        </div>
+        <Image
+          src="/logo-mascot.png"
+          alt={config.fullName}
+          width={80}
+          height={100}
+          className="h-20 w-auto opacity-30 grayscale"
+        />
         <div className="text-center">
           <h1 className="font-display text-2xl tracking-tight text-navy">
             {heading}
@@ -57,7 +55,7 @@ function ErrorContent() {
 export default function AuthErrorPage() {
   return (
     <div className="noise-bg flex min-h-screen items-center justify-center bg-background px-4">
-      <Suspense>
+      <Suspense fallback={null}>
         <ErrorContent />
       </Suspense>
     </div>

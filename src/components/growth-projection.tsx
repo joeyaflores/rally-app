@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatNumber } from "@/lib/data";
+import { formatNumber } from "@/lib/format";
 import { TrendingUp } from "lucide-react";
 
 interface GrowthProjectionProps {
@@ -60,8 +60,8 @@ export function GrowthProjection({
             <CardTitle className="font-display text-lg tracking-tight">
               where this is headed
             </CardTitle>
-            <p className="text-sm text-muted-foreground">
-              +{monthlyGrowth.toLocaleString()} neighbors in {currentMonth.toLowerCase()}
+            <p className="font-display text-sm uppercase text-muted-foreground">
+              +{monthlyGrowth.toLocaleString()} runners in {currentMonth}
             </p>
           </div>
         </div>
@@ -76,10 +76,10 @@ export function GrowthProjection({
             return (
               <div key={p.milestone}>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium text-foreground">
-                    {p.label} neighbors
+                  <span className="font-display font-medium uppercase text-foreground">
+                    {p.label} runners
                   </span>
-                  <span className="text-muted-foreground">
+                  <span className="font-display uppercase text-muted-foreground">
                     ~{p.eta}
                   </span>
                 </div>
@@ -93,7 +93,7 @@ export function GrowthProjection({
             );
           })}
         </div>
-        <p className="mt-4 text-xs text-muted-foreground/60">
+        <p className="mt-4 font-display text-xs uppercase text-muted-foreground/60">
           based on current pace across ig, tiktok & strava
         </p>
       </CardContent>
