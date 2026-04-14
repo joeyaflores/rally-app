@@ -143,13 +143,13 @@ const config: RallyConfig = {
   },
 
   founders: [
-    { name: "Brianna", role: "Co-Founder" },
+    { name: "Bri", role: "Co-Founder" },
     { name: "JM", role: "Co-Founder" },
     { name: "Abel", role: "Co-Founder" },
   ],
 
   creators: [
-    { id: "brianna", label: "Brianna", color: "#D4703F" },
+    { id: "bri", label: "Bri", color: "#D4703F" },
     { id: "jm", label: "JM", color: "#1B4332" },
     { id: "abel", label: "Abel", color: "#B8860B" },
   ],
@@ -235,7 +235,7 @@ const config: RallyConfig = {
   authErrors: {
     unauthorized: {
       heading: "not on the team yet",
-      body: "this google account isn't part of the team. if you think it should be, reach out to brianna or jm.",
+      body: "this google account isn't part of the team. if you think it should be, reach out to bri or jm.",
     },
     default: {
       heading: "something went wrong",
