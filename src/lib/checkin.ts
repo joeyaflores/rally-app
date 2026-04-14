@@ -47,6 +47,8 @@ export interface Member {
   last_name: string;
   email: string;
   phone: string;
+  birth_month: number;
+  birth_day: number;
   first_checkin: string;
   last_checkin: string;
   total_checkins: number;
@@ -76,10 +78,14 @@ export async function submitCheckin(opts: {
   lastName: string;
   email: string;
   phone: string;
+  birthMonth: number;
+  birthDay: number;
 }): Promise<{ ok: boolean; alreadyCheckedIn?: boolean; totalCheckins?: number; error?: string }> {
   const trimmedFirst = opts.firstName.trim();
   const trimmedLast = opts.lastName.trim();
   const trimmedPhone = opts.phone.trim();
+  const birthMonth = opts.birthMonth;
+  const birthDay = opts.birthDay;
 
   if (!trimmedFirst || trimmedFirst.length > 100) {
     return { ok: false, error: "Enter your first name." };
@@ -89,6 +95,13 @@ export async function submitCheckin(opts: {
   }
   if (trimmedPhone.length > 30) {
     return { ok: false, error: "Phone number is too long." };
+  }
+  // Validate birthday — both must be set or both zero (unset)
+  if ((birthMonth > 0) !== (birthDay > 0)) {
+    return { ok: false, error: "Select both birth month and day." };
+  }
+  if (birthMonth < 0 || birthMonth > 12 || birthDay < 0 || birthDay > 31) {
+    return { ok: false, error: "Invalid birthday." };
   }
 
   const { email: normalized, error } = validateEmail(opts.email);
@@ -120,16 +133,18 @@ export async function submitCheckin(opts: {
     // Upsert member — only increment if this is a new check-in (not duplicate)
     if (result.changes > 0) {
       db.prepare(
-        `INSERT INTO members (id, name, first_name, last_name, email, phone, first_checkin, last_checkin, total_checkins)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+        `INSERT INTO members (id, name, first_name, last_name, email, phone, birth_month, birth_day, first_checkin, last_checkin, total_checkins)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
          ON CONFLICT(email) DO UPDATE SET
            name = CASE WHEN members.first_name = '' THEN excluded.name ELSE members.name END,
            first_name = CASE WHEN members.first_name = '' THEN excluded.first_name ELSE members.first_name END,
            last_name = CASE WHEN members.last_name = '' THEN excluded.last_name ELSE members.last_name END,
            phone = CASE WHEN excluded.phone != '' THEN excluded.phone ELSE members.phone END,
+           birth_month = CASE WHEN excluded.birth_month > 0 THEN excluded.birth_month ELSE members.birth_month END,
+           birth_day = CASE WHEN excluded.birth_day > 0 THEN excluded.birth_day ELSE members.birth_day END,
            last_checkin = excluded.last_checkin,
            total_checkins = total_checkins + 1`
-      ).run(crypto.randomUUID(), fullName, trimmedFirst, trimmedLast, normalized, trimmedPhone, session.session_date, session.session_date);
+      ).run(crypto.randomUUID(), fullName, trimmedFirst, trimmedLast, normalized, trimmedPhone, birthMonth, birthDay, session.session_date, session.session_date);
     }
 
     // Get updated total for this member

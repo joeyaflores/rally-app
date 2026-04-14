@@ -158,6 +158,8 @@ export function getDb() {
         last_name TEXT NOT NULL DEFAULT '',
         email TEXT NOT NULL UNIQUE,
         phone TEXT NOT NULL DEFAULT '',
+        birth_month INTEGER NOT NULL DEFAULT 0,
+        birth_day INTEGER NOT NULL DEFAULT 0,
         first_checkin TEXT NOT NULL,
         last_checkin TEXT NOT NULL,
         total_checkins INTEGER NOT NULL DEFAULT 1,
@@ -248,6 +250,10 @@ export function getDb() {
     }
     _db.exec("UPDATE checkins SET first_name = name WHERE first_name = ''");
     _db.exec("UPDATE members SET first_name = name WHERE first_name = ''");
+
+    // Add birth_month, birth_day to members.
+    addCol("members", "birth_month", "INTEGER NOT NULL DEFAULT 0");
+    addCol("members", "birth_day", "INTEGER NOT NULL DEFAULT 0");
 
     addCol("event_reports", "images", "TEXT NOT NULL DEFAULT '[]'");
     addCol("social_posts", "latest_comments", "TEXT NOT NULL DEFAULT '[]'");
