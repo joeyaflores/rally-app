@@ -76,7 +76,7 @@ export default function RootLayout({
       >
         <TooltipProvider>
           {children}
-          <Suspense>
+          <Suspense fallback={null}>
             <MobileNav />
           </Suspense>
         </TooltipProvider>

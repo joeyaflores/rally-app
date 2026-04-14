@@ -1,4 +1,4 @@
-import { formatNumber, pctChange } from "@/lib/data";
+import { formatNumber, pctChange } from "@/lib/format";
 import { TrendBadge } from "./trend-badge";
 import type { DashboardData } from "@/lib/analytics-types";
 import config from "@rally";

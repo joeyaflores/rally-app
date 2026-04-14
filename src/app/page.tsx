@@ -174,7 +174,7 @@ export default async function Home() {
       <PageHeader title={config.name} />
 
       <main className="relative z-10 mx-auto max-w-7xl space-y-8 px-6 pb-20 pt-8 sm:pb-8">
-        <Suspense>
+        <Suspense fallback={<div className="h-96 animate-pulse rounded-2xl bg-secondary/30" />}>
           <DashboardTabs
             pulseContent={pulseContent}
             growthContent={growthContent}
