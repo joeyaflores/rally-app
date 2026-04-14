@@ -28,13 +28,13 @@ export function PageHeader({
             </Link>
           )}
           <Image
-            src="/logo-icon.svg"
+            src="/logo-mascot.png"
             alt={config.fullName}
-            width={32}
-            height={32}
-            className="h-7 w-7 sm:h-8 sm:w-8"
+            width={40}
+            height={50}
+            className="h-8 w-auto sm:h-9"
           />
-          <h1 className="font-display text-lg tracking-tight text-navy sm:text-xl">
+          <h1 className="font-display text-lg font-bold uppercase tracking-wide text-navy sm:text-xl">
             {title}
           </h1>
         </div>

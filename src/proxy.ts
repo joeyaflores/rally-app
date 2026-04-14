@@ -23,10 +23,9 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/auth/") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/logo-") ||
-    pathname.startsWith("/hero-") ||
     pathname.startsWith("/opengraph-image") ||
-    pathname === "/favicon.svg" ||
-    pathname === "/apple-icon" ||
+    pathname === "/favicon.png" ||
+    pathname === "/apple-touch-icon.png" ||
     pathname === "/manifest.webmanifest" ||
     pathname === "/robots.txt"
   ) {

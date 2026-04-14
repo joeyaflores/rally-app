@@ -1,28 +1,20 @@
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
-import { Bebas_Neue } from "next/font/google";
+import { Unbounded, Space_Grotesk } from "next/font/google";
 import { MobileNav } from "@/components/dashboard-nav";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import config from "@rally";
 import "./globals.css";
 
-const madeMirage = localFont({
-  src: "../fonts/made-mirage-bold.otf",
+const unbounded = Unbounded({
+  subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
 });
 
-const coolvetica = localFont({
-  src: "../fonts/coolvetica.otf",
-  variable: "--font-body",
-  display: "swap",
-});
-
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  variable: "--font-stat",
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
+  variable: "--font-body",
   display: "swap",
 });
 
@@ -54,8 +46,8 @@ export const metadata: Metadata = {
     description: desc,
   },
   icons: {
-    icon: "/favicon.svg",
-    apple: "/apple-icon",
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
   other: {
     "theme-color": config.theme.primary,
@@ -70,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${madeMirage.variable} ${coolvetica.variable} ${bebasNeue.variable} antialiased`}
+        className={`${unbounded.variable} ${spaceGrotesk.variable} antialiased`}
         style={{ backgroundColor: "#F8F5F0" }}
         suppressHydrationWarning
       >
