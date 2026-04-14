@@ -15,6 +15,7 @@ export function proxy(request: NextRequest) {
   if (
     pathname.startsWith("/api/auth") ||
     pathname === "/api/health" ||
+    pathname === "/api/healthz" ||
     pathname === "/monitoring" ||
     pathname === "/login" ||
     pathname === "/join" ||

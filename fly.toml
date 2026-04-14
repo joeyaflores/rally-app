@@ -15,11 +15,11 @@ NEXT_PUBLIC_URL = "https://mas-millas.fly.dev"
   min_machines_running = 0
 
 [[http_service.checks]]
-  grace_period = "30s"
-  interval = "60s"
+  grace_period = "15s"
+  interval = "15s"
   method = "GET"
-  timeout = "10s"
-  path = "/api/health"
+  timeout = "5s"
+  path = "/api/healthz"
 
 [mounts]
   source = "data"
