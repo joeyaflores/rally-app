@@ -41,7 +41,7 @@ function getSaved(): SavedInfo | null {
 }
 
 const INPUT_CLASS =
-  "w-full rounded-2xl border border-white/[0.08] bg-white/[0.06] px-5 py-4 text-base text-white placeholder:text-white/30 outline-none transition-colors focus-visible:border-white/20 focus-visible:bg-white/[0.08] focus-visible:ring-1 focus-visible:ring-white/20";
+  "w-full rounded-2xl border border-white/[0.06] bg-white/[0.04] px-5 py-4 text-base text-white placeholder:text-white/25 outline-none transition-all duration-200 focus-visible:border-warm/30 focus-visible:bg-white/[0.06] focus-visible:ring-1 focus-visible:ring-warm/15";
 
 export function CheckinForm({ sessionId, eventDetails }: Props) {
   const [firstName, setFirstName] = useState("");
@@ -109,16 +109,16 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
         <div className="relative mx-auto mb-8 h-24 w-24">
           {/* Pulse ring that radiates outward */}
           <div
-            className="absolute inset-0 rounded-full border border-white/20"
+            className="absolute inset-0 rounded-full border border-warm/25"
             style={{
               animation: "checkin-pulse-out 1.2s ease-out 0.4s both",
             }}
           />
           {/* Main ring */}
           <div
-            className="absolute inset-0 flex items-center justify-center rounded-full border-2 border-white/20"
+            className="absolute inset-0 flex items-center justify-center rounded-full border-2 border-warm/30"
             style={{
-              animation: "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, checkin-glow 1.2s ease-out 0.3s both",
+              animation: "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, checkin-glow-warm 1.2s ease-out 0.3s both",
             }}
           >
             {/* Animated checkmark */}
@@ -191,7 +191,7 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
             className="mt-8"
             style={{ animation: "fade-up 0.6s ease-out 1.1s both" }}
           >
-            <div className="mx-auto mb-4 h-px w-12 bg-white/10" />
+            <div className="mx-auto mb-4 h-px w-12 bg-warm/20" />
             <p className="mb-4 font-stat text-xs tracking-[0.3em] uppercase text-white/30 sm:text-sm">
               today&apos;s run
             </p>
@@ -218,19 +218,19 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
       {/* Quick check-in for returning runners */}
       {showQuickCheckin && (
         <div className="mb-8 text-center">
-          <p className="mb-3 text-sm text-white/50">
+          <p className="mb-4 text-sm text-white/40">
             welcome back, {saved.firstName.toLowerCase()}
           </p>
           <button
             onClick={() => doCheckin(saved.firstName, saved.lastName, saved.email, saved.phone)}
             disabled={state === "loading"}
-            className="w-full rounded-2xl bg-white px-6 py-4 font-display text-lg tracking-wide text-navy shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
+            className="w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg tracking-wide text-white shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {state === "loading" ? "\u2026" : "i\u2019m here"}
           </button>
           <button
             onClick={() => setUseManual(true)}
-            className="mt-3 text-xs text-white/30 transition-colors hover:text-white/50"
+            className="mt-4 text-xs text-white/25 transition-colors hover:text-warm/60"
           >
             not {saved.firstName.toLowerCase()}? check in manually
           </button>
@@ -244,7 +244,7 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
             e.preventDefault();
             doCheckin(firstName, lastName, email, phone);
           }}
-          className="space-y-3"
+          className="space-y-4"
         >
           {/* First + Last name row */}
           <div className="flex gap-3">
@@ -315,7 +315,7 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
           <button
             type="submit"
             disabled={state === "loading"}
-            className="mt-1 w-full rounded-2xl bg-white px-6 py-4 font-display text-lg tracking-wide text-navy shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
+            className="mt-2 w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg tracking-wide text-white shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {state === "loading" ? "\u2026" : "check in"}
           </button>
