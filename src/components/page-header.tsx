@@ -30,9 +30,9 @@ export function PageHeader({
           <Image
             src="/logo-mascot.png"
             alt={config.fullName}
-            width={56}
-            height={70}
-            className="h-10 w-auto sm:h-12"
+            width={80}
+            height={100}
+            className="h-14 w-auto sm:h-16"
           />
           <h1 className="font-display text-lg font-bold uppercase tracking-wide text-navy sm:text-xl">
             {title}
