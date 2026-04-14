@@ -42,8 +42,8 @@ export default function JoinPage() {
       <section className="noise-bg relative flex min-h-hero flex-col overflow-hidden bg-background">
         <HeroSlideshow />
         <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
-          <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-warm/[0.06]" />
-          <div className="absolute -bottom-40 -left-20 h-[26rem] w-[26rem] rounded-full bg-navy/[0.03]" />
+          <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-warm/[0.08]" />
+          <div className="absolute -bottom-40 -left-20 h-[26rem] w-[26rem] rounded-full bg-navy/[0.04]" />
         </div>
 
         <div

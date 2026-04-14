@@ -34,7 +34,7 @@ const CATEGORIES: {
 }[] = [
   { id: "pt", label: "PT / recovery", color: "#059669" },
   { id: "nutrition", label: "nutrition", color: "#D97706" },
-  { id: "apparel", label: "apparel / gear", color: "#132C83" },
+  { id: "apparel", label: "apparel / gear", color: "#29741d" },
   { id: "local", label: "local biz", color: "#FF6B35" },
   { id: "media", label: "media / photo", color: "#E1306C" },
   { id: "venue", label: "venue / space", color: "#0891B2" },

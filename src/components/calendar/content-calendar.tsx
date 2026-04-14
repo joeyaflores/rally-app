@@ -885,7 +885,7 @@ export function ContentCalendar({
                       onClick={() => setFormScope("personal")}
                       className={`rounded-lg px-3 py-1.5 font-display text-xs font-medium uppercase transition-all ${
                         formScope === "personal"
-                          ? "bg-warm text-white"
+                          ? "bg-warm text-navy-dark"
                           : "bg-secondary/50 text-muted-foreground hover:bg-secondary"
                       }`}
                     >

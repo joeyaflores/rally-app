@@ -1,18 +1,18 @@
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
-import { Unbounded, Space_Grotesk } from "next/font/google";
+import { Fraunces, DM_Sans } from "next/font/google";
 import { MobileNav } from "@/components/dashboard-nav";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import config from "@rally";
 import "./globals.css";
 
-const unbounded = Unbounded({
+const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
@@ -62,8 +62,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${unbounded.variable} ${spaceGrotesk.variable} antialiased`}
-        style={{ backgroundColor: "#F8F5F0" }}
+        className={`${fraunces.variable} ${dmSans.variable} antialiased`}
+        style={{ backgroundColor: "#FDFBF4" }}
         suppressHydrationWarning
       >
         <TooltipProvider>

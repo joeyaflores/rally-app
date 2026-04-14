@@ -224,7 +224,7 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
           <button
             onClick={() => doCheckin(saved.firstName, saved.lastName, saved.email, saved.phone)}
             disabled={state === "loading"}
-            className="w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg tracking-wide text-white shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
+            className="w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg font-semibold tracking-wide text-navy-dark shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {state === "loading" ? "\u2026" : "i\u2019m here"}
           </button>
@@ -315,7 +315,7 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
           <button
             type="submit"
             disabled={state === "loading"}
-            className="mt-2 w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg tracking-wide text-white shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
+            className="mt-2 w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg font-semibold tracking-wide text-navy-dark shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {state === "loading" ? "\u2026" : "check in"}
           </button>

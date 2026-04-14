@@ -31,7 +31,7 @@ import type { ContentPost, Platform } from "@/lib/calendar-types";
 
 const TYPE_CONFIG: Record<BoardType, { label: string; color: string }> = {
   event: { label: "event", color: "#FF6B35" },
-  campaign: { label: "campaign", color: "#132C83" },
+  campaign: { label: "campaign", color: "#29741d" },
   merch: { label: "merch", color: "#059669" },
   general: { label: "general", color: "#6B7280" },
 };

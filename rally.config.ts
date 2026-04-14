@@ -149,9 +149,9 @@ const config: RallyConfig = {
   ],
 
   creators: [
-    { id: "bri", label: "Bri", color: "#D4703F" },
-    { id: "jm", label: "JM", color: "#1B4332" },
-    { id: "abel", label: "Abel", color: "#B8860B" },
+    { id: "bri", label: "Bri", color: "#e2b808" },
+    { id: "jm", label: "JM", color: "#29741d" },
+    { id: "abel", label: "Abel", color: "#8cb561" },
   ],
 
   events: [
@@ -192,19 +192,19 @@ const config: RallyConfig = {
     tiktok: "masmillasrunclub",
   },
 
-  // ─── Desert Warmth palette ───
-  // Deep cactus green as the primary, terracotta as the accent.
-  // Warm sand background instead of cool grey. Feels like a
-  // Fort Worth sunset, not a corporate dashboard.
+  // ─── Official MMRC palette ───
+  // Forest green + gold drawn from the official brand color
+  // sheet. Warm cream background keeps the Texas-sun feeling
+  // without competing with the mascot's greens.
   theme: {
-    primary: "#1B4332",        // deep cactus green
-    primaryLight: "#2D6A4F",   // sage
-    primaryDark: "#0B2E1F",    // midnight green
-    accent: "#D4703F",         // terracotta
-    accentLight: "#E08B5E",    // warm clay
-    accentMuted: "#FDF0E8",    // sand blush
-    gold: "#D4A017",           // desert sun
-    background: "#F8F5F0",     // warm sand
+    primary: "#29741d",        // forest green
+    primaryLight: "#8cb561",   // sage green
+    primaryDark: "#1d5c14",    // deep forest
+    accent: "#e2b808",         // gold
+    accentLight: "#f4cd0b",    // bright yellow
+    accentMuted: "#fdeb9e",    // cream yellow
+    gold: "#f4cd0b",           // vibrant gold
+    background: "#FDFBF4",     // warm cream
   },
 
   heroImages: [],

@@ -36,12 +36,12 @@ export default async function CheckinPage() {
 
       <div className="noise-bg absolute inset-0 z-[1]" />
 
-      {/* Warm radial glow — sunset-like depth emanating from top */}
+      {/* Golden radial glow emanating from top */}
       <div className="absolute inset-0 z-[2] overflow-hidden">
         <div
           className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/4 rounded-full sm:h-[600px] sm:w-[600px]"
           style={{
-            background: "radial-gradient(circle, rgba(212,112,63,0.12) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(226,184,8,0.12) 0%, transparent 70%)",
             animation: "warm-pulse 8s ease-in-out infinite",
           }}
         />
@@ -57,11 +57,11 @@ export default async function CheckinPage() {
           className={`absolute -bottom-32 -left-16 h-80 w-80 rounded-full ${t.circle2}`}
           style={{ animation: "drift-reverse 25s ease-in-out infinite" }}
         />
-        {/* Small warm accent orb */}
+        {/* Small gold accent orb */}
         <div
           className="absolute right-8 top-1/3 h-32 w-32 rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(212,112,63,0.04) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(244,205,11,0.05) 0%, transparent 70%)",
             animation: "drift 15s ease-in-out 3s infinite",
           }}
         />
@@ -81,7 +81,7 @@ export default async function CheckinPage() {
             alt=""
             width={80}
             height={100}
-            className="mx-auto h-20 w-auto brightness-0 invert opacity-50 drop-shadow-[0_0_30px_rgba(212,112,63,0.15)] sm:h-24"
+            className="mx-auto h-20 w-auto brightness-0 invert opacity-50 drop-shadow-[0_0_30px_rgba(226,184,8,0.15)] sm:h-24"
           />
           <p className="mt-3 font-display text-[0.6rem] font-medium uppercase tracking-[0.3em] text-white/30 sm:text-[0.65rem]">
             {config.fullName}

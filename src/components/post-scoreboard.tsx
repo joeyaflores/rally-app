@@ -77,7 +77,7 @@ function TopPerformer({ post, followers }: { post: SocialPost; followers: Record
         <div
           className="relative aspect-[4/3] w-full shrink-0 overflow-hidden sm:aspect-auto sm:w-52 md:w-60"
           style={{
-            background: `linear-gradient(135deg, ${platform?.color ?? "#132C83"}20, ${platform?.color ?? "#132C83"}40)`,
+            background: `linear-gradient(135deg, ${platform?.color ?? "#29741d"}20, ${platform?.color ?? "#29741d"}40)`,
           }}
         >
           {post.thumbnail_url && (
@@ -280,7 +280,7 @@ function PostCell({
           <div
             className="relative aspect-[4/5] overflow-hidden"
             style={{
-              background: `linear-gradient(145deg, ${platform?.color ?? "#132C83"}12, ${platform?.color ?? "#132C83"}28)`,
+              background: `linear-gradient(145deg, ${platform?.color ?? "#29741d"}12, ${platform?.color ?? "#29741d"}28)`,
             }}
           >
             {post.thumbnail_url && (

@@ -8,7 +8,7 @@ import type { BoardType } from "@/lib/board-types";
 
 const TYPES: { id: BoardType; label: string; color: string }[] = [
   { id: "event", label: "event", color: "#FF6B35" },
-  { id: "campaign", label: "campaign", color: "#132C83" },
+  { id: "campaign", label: "campaign", color: "#29741d" },
   { id: "merch", label: "merch", color: "#059669" },
   { id: "general", label: "general", color: "#6B7280" },
 ];
