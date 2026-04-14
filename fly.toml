@@ -1,10 +1,11 @@
-app = "rally-app"
+app = "mas-millas"
 primary_region = "dfw"
 
 [build]
 
 [env]
-BETTER_AUTH_URL = "https://rally-app.fly.dev"
+BETTER_AUTH_URL = "https://mas-millas.fly.dev"
+NEXT_PUBLIC_URL = "https://mas-millas.fly.dev"
 
 [http_service]
   internal_port = 3000
