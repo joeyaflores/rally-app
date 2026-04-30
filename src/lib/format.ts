@@ -12,6 +12,24 @@ export function formatDate(dateStr: string, { year = false }: { year?: boolean }
   });
 }
 
+/**
+ * Format a SQLite-stored UTC timestamp as "4:49 PM" in Central time.
+ *
+ * SQLite `datetime('now')` returns naive UTC ("YYYY-MM-DD HH:MM:SS"); JS Date
+ * parses naive strings as LOCAL time per spec, which silently breaks any
+ * subsequent `toLocaleString({ timeZone })` formatting on non-UTC servers.
+ * Pin to UTC by appending Z when no zone marker is present.
+ */
+export function formatTime(iso: string): string {
+  const t = iso.includes("T") ? iso : iso.replace(" ", "T");
+  const utc = /[Zz]$|[+-]\d{2}:?\d{2}$/.test(t) ? t : `${t}Z`;
+  return new Date(utc).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/Chicago",
+  });
+}
+
 export function pctChange(current: number, previous: number): number {
   if (previous === 0) return 0;
   return Math.round(((current - previous) / previous) * 100);
@@ -45,6 +63,18 @@ export function displayName(
 ): string {
   if (first && last) return `${first} ${last}`;
   return first || fallback || "";
+}
+
+/** Format a US phone number for display. Falls back to the raw input on non-US shapes. */
+export function formatPhone(raw: string): string {
+  const digits = raw.replace(/\D/g, "");
+  if (digits.length === 11 && digits.startsWith("1")) {
+    return `(${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
+  }
+  if (digits.length === 10) {
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+  return raw;
 }
 
 /** Escape a value for CSV output (handles commas, quotes, formula injection). */

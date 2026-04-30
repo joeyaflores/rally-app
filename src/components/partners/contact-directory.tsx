@@ -24,6 +24,7 @@ import type {
   ContactCategory,
   ContactRelationship,
 } from "@/lib/contact-types";
+import { formatPhone } from "@/lib/format";
 
 /* ─── Config ─── */
 
@@ -398,7 +399,7 @@ function ContactCard({
                   className="flex items-center gap-1.5 rounded-lg bg-secondary/70 px-2.5 py-1 text-xs text-foreground transition-colors hover:bg-secondary"
                 >
                   <Phone className="h-3 w-3 text-muted-foreground" />
-                  {contact.phone}
+                  <span className="tabular-nums">{formatPhone(contact.phone)}</span>
                 </a>
               )}
               {contact.email && (

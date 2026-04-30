@@ -4,7 +4,7 @@ import { useState, useTransition, useMemo } from "react";
 import { Search, Download, Mail, Phone } from "lucide-react";
 import type { Runner } from "@/lib/runners";
 import { getRunnersCSV, deleteRunner } from "@/lib/runners";
-import { formatDate, displayName } from "@/lib/format";
+import { formatDate, displayName, formatPhone } from "@/lib/format";
 import { getMilestone } from "@/lib/milestones";
 import config from "@rally";
 
@@ -202,7 +202,7 @@ export function RunnersList({ initial }: { initial: Runner[] }) {
                         {r.phone && (
                           <span className="flex shrink-0 items-center gap-1 text-xs text-muted-foreground/30">
                             <Phone className="h-2.5 w-2.5" aria-hidden="true" />
-                            {r.phone}
+                            <span className="tabular-nums">{formatPhone(r.phone)}</span>
                           </span>
                         )}
                       </div>
