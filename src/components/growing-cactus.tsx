@@ -71,14 +71,14 @@ const SOIL = (
 const SPROUT_BODY = (
   <g key="sprout">
     {/* Tiny stem */}
-    <rect x="31" y="58" width="2" height="10" rx="1" fill="var(--color-navy-light)" />
+    <rect x="31" y="58" width="2" height="10" rx="1" fill="var(--color-navy)" />
     {/* Two cotyledon leaves */}
     <ellipse
       cx="27"
       cy="56"
       rx="3.5"
       ry="1.8"
-      fill="var(--color-navy-light)"
+      fill="var(--color-navy)"
       transform="rotate(-28 27 56)"
     />
     <ellipse
@@ -86,7 +86,7 @@ const SPROUT_BODY = (
       cy="56"
       rx="3.5"
       ry="1.8"
-      fill="var(--color-navy-light)"
+      fill="var(--color-navy)"
       transform="rotate(28 37 56)"
     />
   </g>
@@ -100,20 +100,20 @@ const SAPLING_BODY = (
     width="12"
     height="24"
     rx="6"
-    fill="var(--color-navy-light)"
+    fill="var(--color-navy)"
   />
 );
 
 const YOUNG_BODY = (
   <g key="yng">
-    <rect x="26" y="30" width="12" height="38" rx="6" fill="var(--color-navy-light)" />
+    <rect x="26" y="30" width="12" height="38" rx="6" fill="var(--color-navy)" />
     {/* arm bud — small bump on right */}
-    <rect x="38" y="46" width="6" height="8" rx="3" fill="var(--color-navy-light)" />
+    <rect x="38" y="46" width="6" height="8" rx="3" fill="var(--color-navy)" />
   </g>
 );
 
 const MATURE_SILHOUETTE = (
-  <g key="mat" fill="var(--color-navy-light)">
+  <g key="mat" fill="var(--color-navy)">
     {/* main column */}
     <rect x="26" y="14" width="12" height="54" rx="6" />
     {/* left arm: connector + vertical */}

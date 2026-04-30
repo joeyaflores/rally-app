@@ -58,10 +58,10 @@ function getSaved(): SavedInfo | null {
 }
 
 const INPUT_CLASS =
-  "w-full rounded-2xl border border-white/[0.08] bg-white/[0.05] px-5 py-4 text-[16px] leading-6 text-white placeholder:text-white/65 outline-none transition-all duration-200 focus-visible:border-warm/40 focus-visible:bg-white/[0.08] focus-visible:ring-1 focus-visible:ring-warm/20";
+  "w-full rounded-2xl border border-navy/15 bg-white px-5 py-4 text-[16px] leading-6 text-navy placeholder:text-navy/45 outline-none transition-all duration-200 focus-visible:border-navy/40 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-navy/15";
 
 const SELECT_CLASS =
-  "w-full appearance-none rounded-2xl border border-white/[0.08] bg-white/[0.05] px-5 py-4 pr-10 text-[16px] leading-6 text-white outline-none transition-all duration-200 focus-visible:border-warm/40 focus-visible:bg-white/[0.08] focus-visible:ring-1 focus-visible:ring-warm/20";
+  "w-full appearance-none rounded-2xl border border-navy/15 bg-white px-5 py-4 pr-10 text-[16px] leading-6 text-navy outline-none transition-all duration-200 focus-visible:border-navy/40 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-navy/15";
 
 // Hoisted static data — never recreated (rendering-hoist-jsx)
 const MONTHS = [
@@ -151,33 +151,34 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
 
     return (
       <div className="text-center">
-        {/* Celebration mark — golden ring + checkmark, runner-centered (no duplicate brand mascot) */}
+        {/* Celebration mark — forest ring + cactus inside */}
         <div aria-hidden className="relative mx-auto mb-6 h-28 w-28 sm:h-32 sm:w-32">
           {/* Pulse ring that radiates outward */}
           <div
-            className="absolute inset-0 rounded-full border border-warm/25"
+            className="absolute inset-0 rounded-full border border-navy/25"
             style={{ animation: "checkin-pulse-out 1.2s ease-out 0.4s both" }}
           />
-          {/* Golden ring */}
+          {/* Forest ring */}
           <div
-            className="absolute inset-0 rounded-full border-2 border-warm/40"
+            className="absolute inset-0 rounded-full border-2 border-navy/55"
             style={{
               animation:
-                "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, checkin-glow-warm 1.2s ease-out 0.3s both",
+                "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+              boxShadow: "0 0 24px rgba(41,116,29,0.15)",
             }}
           />
-          {/* Soft warm disc + growing cactus */}
+          {/* Warm gold spotlight disc — gives the cool-cream pot a contrasting backdrop */}
           <div
             className="absolute inset-2 flex items-center justify-center rounded-full"
             style={{
               background:
-                "radial-gradient(circle, rgba(244,205,11,0.18) 0%, rgba(226,184,8,0.06) 60%, transparent 100%)",
+                "radial-gradient(circle, rgba(244,205,11,0.32) 0%, rgba(226,184,8,0.14) 55%, transparent 100%)",
               animation: "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both",
             }}
           >
             <GrowingCactus
               checkins={totalCheckins}
-              className="h-[5.5rem] w-auto drop-shadow-[0_2px_10px_rgba(244,205,11,0.35)] sm:h-[6.5rem]"
+              className="h-[5.5rem] w-auto drop-shadow-[0_4px_10px_rgba(41,116,29,0.18)] sm:h-[6.5rem]"
             />
           </div>
         </div>
@@ -185,15 +186,15 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
         {/* Headline — different for first-timer vs returning */}
         <div style={{ animation: "fade-up 0.5s ease-out 0.5s both" }}>
           {state === "already" ? (
-            <h2 className="font-display text-2xl tracking-wide text-white sm:text-3xl">
+            <h2 className="font-display text-2xl tracking-wide text-navy sm:text-3xl">
               Already checked in
             </h2>
           ) : isFirstEver ? (
-            <h2 className="font-display text-2xl tracking-wide text-white sm:text-3xl">
+            <h2 className="font-display text-2xl tracking-wide text-navy sm:text-3xl">
               {config.checkin.welcomeMessage}
             </h2>
           ) : (
-            <h2 className="font-display text-2xl tracking-wide text-white sm:text-3xl">
+            <h2 className="font-display text-2xl tracking-wide text-navy sm:text-3xl">
               You&rsquo;re checked in
             </h2>
           )}
@@ -202,14 +203,14 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
         {/* Personal detail — first-timer gets warm welcome, regulars get their run count */}
         <div style={{ animation: "fade-up 0.5s ease-out 0.7s both" }}>
           {isFirstEver ? (
-            <p className="mt-3 text-sm text-white/85">
+            <p className="mt-3 text-sm text-navy/80">
               Welcome, {firstName.trim()}. This is your first run with us.
             </p>
           ) : (
-            <p className="mt-3 text-sm text-white/85">
+            <p className="mt-3 text-sm text-navy/80">
               {config.terms.greeting}, {firstName.trim()}{" "}
-              <span aria-hidden className="mx-1 text-white/55">·</span>{" "}
-              <span className="text-white">Run #{totalCheckins}</span>
+              <span aria-hidden className="mx-1 text-navy/45">·</span>{" "}
+              <span className="font-medium text-navy">Run #{totalCheckins}</span>
             </p>
           )}
         </div>
@@ -217,7 +218,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
         {/* Milestone badge for regulars */}
         {milestone && (
           <div style={{ animation: "fade-up 0.5s ease-out 0.9s both" }}>
-            <span className={`mt-4 inline-block rounded-full px-4 py-1.5 text-xs font-medium ${milestone.darkColor}`}>
+            <span className={`mt-4 inline-block rounded-full px-4 py-1.5 text-xs font-medium ${milestone.color}`}>
               {milestone.label}
             </span>
           </div>
@@ -232,11 +233,11 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
             className="mt-8"
             style={{ animation: "fade-up 0.6s ease-out 1.1s both" }}
           >
-            <div className="mx-auto mb-4 h-px w-12 bg-warm/20" />
-            <p className="mb-4 font-stat text-xs tracking-[0.3em] uppercase text-white/75 sm:text-sm">
+            <div className="mx-auto mb-4 h-px w-12 bg-warm/50" />
+            <p className="mb-4 font-stat text-xs tracking-[0.3em] uppercase text-navy/70 sm:text-sm">
               Today&apos;s run
             </p>
-            <div className="space-y-3 text-base leading-relaxed text-white/85">
+            <div className="space-y-3 text-base leading-relaxed text-navy/85">
               {eventDetails.split("\n").filter(Boolean).map((line, i) => (
                 <p
                   key={i}
@@ -259,19 +260,19 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
       {/* Quick check-in for returning runners */}
       {showQuickCheckin && (
         <div className="mb-8 mt-8 text-center sm:mt-2">
-          <p className="mb-4 text-sm text-white/75">
+          <p className="mb-4 text-sm text-navy/75">
             Welcome back, {saved.firstName}
           </p>
           <button
             onClick={() => doCheckin(saved.firstName, saved.lastName, saved.email, saved.phone, saved.birthMonth, saved.birthDay)}
             disabled={state === "loading"}
-            className="w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg font-semibold tracking-wide text-navy-dark shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
+            className="w-full rounded-2xl bg-navy px-6 py-4 font-display text-lg font-semibold tracking-wide text-warm-muted shadow-lg shadow-navy/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-navy-dark hover:shadow-xl hover:shadow-navy/25 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {state === "loading" ? "\u2026" : "I\u2019m here"}
           </button>
           <button
             onClick={() => setUseManual(true)}
-            className="mt-4 text-xs text-white/65 transition-colors hover:text-warm/60"
+            className="mt-4 text-xs text-navy/65 transition-colors hover:text-navy"
           >
             Not {saved.firstName}? Check in manually
           </button>
@@ -352,12 +353,12 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
           {/* Birthday — labeled section with month + day selects */}
           <fieldset className="space-y-2.5">
             <div className="flex items-center gap-2 px-1">
-              <svg className="h-3.5 w-3.5 text-warm-light/75" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="h-3.5 w-3.5 text-navy/65" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87" />
                 <path d="M16 3.13a4 4 0 0 1 0 7.75M8 3.13a4 4 0 0 0 0 7.75" />
                 <path d="M12 11V3M9 6h6" />
               </svg>
-              <legend className="text-[0.7rem] font-medium uppercase tracking-widest text-white/75">
+              <legend className="text-[0.7rem] font-medium uppercase tracking-widest text-navy/75">
                 Birthday
               </legend>
             </div>
@@ -370,16 +371,16 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
                     if (state === "error") setState("idle");
                   }}
                   aria-label="Birth month"
-                  className={`${SELECT_CLASS} ${birthMonth === 0 ? "text-white/65" : ""}`}
+                  className={`${SELECT_CLASS} ${birthMonth === 0 ? "text-navy/45" : ""}`}
                 >
-                  <option value={0} className="bg-neutral-900 text-white/75">Month</option>
+                  <option value={0} className="text-navy/65">Month</option>
                   {MONTHS.map((m) => (
-                    <option key={m.value} value={m.value} className="bg-neutral-900 text-white">
+                    <option key={m.value} value={m.value} className="text-navy">
                       {m.label}
                     </option>
                   ))}
                 </select>
-                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/55">
+                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-navy/55">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </div>
               </div>
@@ -391,16 +392,16 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
                     if (state === "error") setState("idle");
                   }}
                   aria-label="Birth day"
-                  className={`${SELECT_CLASS} ${birthDay === 0 ? "text-white/65" : ""}`}
+                  className={`${SELECT_CLASS} ${birthDay === 0 ? "text-navy/45" : ""}`}
                 >
-                  <option value={0} className="bg-neutral-900 text-white/75">Day</option>
+                  <option value={0} className="text-navy/65">Day</option>
                   {DAYS.map((d) => (
-                    <option key={d} value={d} className="bg-neutral-900 text-white">
+                    <option key={d} value={d} className="text-navy">
                       {d}
                     </option>
                   ))}
                 </select>
-                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/55">
+                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-navy/55">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </div>
               </div>
@@ -408,18 +409,18 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
           </fieldset>
 
           {state === "error" && (
-            <p className="text-center text-xs text-red-300/70">{error}</p>
+            <p className="text-center text-xs text-red-700/85">{error}</p>
           )}
 
           <button
             type="submit"
             disabled={state === "loading"}
-            className="mt-2 w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg font-semibold tracking-wide text-navy-dark shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
+            className="mt-2 w-full rounded-2xl bg-navy px-6 py-4 font-display text-lg font-semibold tracking-wide text-warm-muted shadow-lg shadow-navy/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-navy-dark hover:shadow-xl hover:shadow-navy/25 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {state === "loading" ? "\u2026" : "Check in"}
           </button>
 
-          <p className="text-center text-[0.65rem] leading-relaxed text-white/55">
+          <p className="text-center text-[0.65rem] leading-relaxed text-navy/55">
             {config.checkin.privacyNotice}
           </p>
         </form>

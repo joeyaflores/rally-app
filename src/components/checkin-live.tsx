@@ -24,14 +24,11 @@ import {
 } from "@/lib/checkin";
 import { createReportFromSession, publishReport } from "@/lib/reports";
 import { BASE_URL } from "@/lib/socials";
-import type { CheckinSessionWithCount, Checkin, SessionTheme, Vendor } from "@/lib/checkin";
+import type { CheckinSessionWithCount, Checkin, Vendor } from "@/lib/checkin";
 import { formatDate, displayName } from "@/lib/format";
-import { THEMES } from "@/lib/themes";
 import { VendorEditor } from "@/components/vendor-editor";
 
 const DAY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-const THEME_KEYS = Object.keys(THEMES) as SessionTheme[];
 
 function formatTime(iso: string) {
   return new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Chicago" });
@@ -70,7 +67,6 @@ export function CheckinLive({
   const [newTitle, setNewTitle] = useState("");
   const [newSubtitle, setNewSubtitle] = useState("");
   const [newEventDetails, setNewEventDetails] = useState("");
-  const [newTheme, setNewTheme] = useState<SessionTheme>("navy");
   const [newImageUrl, setNewImageUrl] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
   const [newVendors, setNewVendors] = useState<Vendor[]>([]);
@@ -155,7 +151,6 @@ export function CheckinLive({
         sessionDate: newDate,
         day: newDay,
         subtitle: newSubtitle,
-        theme: newTheme,
         imageUrl: newImageUrl,
         eventDetails: newEventDetails,
         vendors: newVendors,
@@ -169,7 +164,6 @@ export function CheckinLive({
         setNewTitle("");
         setNewSubtitle("");
         setNewEventDetails("");
-        setNewTheme("navy");
         setNewImageUrl("");
         setNewVendors([]);
         setCheckins([]);
@@ -575,26 +569,6 @@ export function CheckinLive({
                       <option key={d} value={d}>{d}</option>
                     ))}
                   </select>
-                </div>
-
-                {/* Theme picker */}
-                <div>
-                  <p className="mb-2 font-display text-[11px] uppercase text-foreground">check-in page theme</p>
-                  <div className="flex gap-2">
-                    {THEME_KEYS.map((key) => (
-                      <button
-                        key={key}
-                        type="button"
-                        onClick={() => setNewTheme(key)}
-                        aria-label={`${THEMES[key].label} theme`}
-                        className={`flex h-8 w-8 items-center justify-center rounded-full ${THEMES[key].bg} transition-all ${
-                          newTheme === key
-                            ? "ring-2 ring-navy ring-offset-2"
-                            : "opacity-50 hover:opacity-75"
-                        }`}
-                      />
-                    ))}
-                  </div>
                 </div>
 
                 {/* Image upload */}
