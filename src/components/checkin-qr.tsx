@@ -36,10 +36,10 @@ export function CheckinQR({ qrDataUrl }: CheckinQRProps) {
           height={180}
           className="rounded-xl"
         />
-        <p className="mt-3 select-all font-mono text-xs tracking-wide text-muted-foreground/50">
+        <p className="mt-3 select-all font-mono text-xs tracking-wide text-foreground">
           {links.checkin.replace("https://", "")}
         </p>
-        <p className="mt-1 text-[10px] text-muted-foreground/30">
+        <p className="mt-1 text-[10px] text-muted-foreground">
           runners scan to check in
         </p>
       </div>

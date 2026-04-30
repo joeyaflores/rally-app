@@ -25,14 +25,10 @@ import {
 import { createReportFromSession, publishReport } from "@/lib/reports";
 import { BASE_URL } from "@/lib/socials";
 import type { CheckinSessionWithCount, Checkin, Vendor } from "@/lib/checkin";
-import { formatDate, displayName } from "@/lib/format";
+import { formatDate, formatTime, displayName, formatPhone } from "@/lib/format";
 import { VendorEditor } from "@/components/vendor-editor";
 
 const DAY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-function formatTime(iso: string) {
-  return new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Chicago" });
-}
 
 export function CheckinLive({
   initialActive,
@@ -90,6 +86,11 @@ export function CheckinLive({
   const closedSessions = useMemo(
     () => sessions.filter((s) => s.status === "closed"),
     [sessions]
+  );
+
+  const checkinsByEmail = useMemo(
+    () => new Map(checkins.map((c) => [c.email, c])),
+    [checkins]
   );
 
   // Load check-ins for active session
@@ -221,12 +222,15 @@ export function CheckinLive({
     });
   }
 
-  function handleRaffle() {
+  // `excluded` is an explicit param (not read from state) so handleExcludeWinner
+  // can chain a re-draw with the freshly-updated list — setExcludedEmails is async.
+  function runRaffle(excluded: string[]) {
     if (!active) return;
+    if (raffleIntervalRef.current) clearInterval(raffleIntervalRef.current);
     setRaffleState("spinning");
     setWinner(null);
 
-    const names = checkins.filter((c) => !excludedEmails.includes(c.email));
+    const names = checkins.filter((c) => !excluded.includes(c.email));
     if (names.length === 0) {
       setRaffleState("idle");
       return;
@@ -241,10 +245,9 @@ export function CheckinLive({
       if (count >= totalSpins) {
         clearInterval(raffleIntervalRef.current);
         startTransition(async () => {
-          const result = await drawRaffleWinner(active.id, excludedEmails);
+          const result = await drawRaffleWinner(active.id, excluded);
           if (result.ok && result.winner) {
             setWinner(result.winner);
-            setSpinName(displayName(result.winner.first_name, null, result.winner.name));
             setRaffleState("done");
           } else {
             setRaffleState("idle");
@@ -255,12 +258,14 @@ export function CheckinLive({
   }
 
   function handleExcludeWinner() {
-    if (winner) {
-      setExcludedEmails((prev) => [...prev, winner.email]);
-      setWinner(null);
-      setRaffleState("idle");
-      setSpinName("");
-    }
+    if (!winner) return;
+    const next = [...excludedEmails, winner.email];
+    setExcludedEmails(next);
+    runRaffle(next);
+  }
+
+  function handleUnexclude(email: string) {
+    setExcludedEmails((prev) => prev.filter((e) => e !== email));
   }
 
   return (
@@ -375,7 +380,7 @@ export function CheckinLive({
               <h3 className="font-display text-sm font-medium uppercase tracking-widest text-muted-foreground">
                 live — {active.title.toLowerCase()}
               </h3>
-              <p className="mt-1 text-[11px] text-muted-foreground/60">
+              <p className="mt-1 text-[11px] text-muted-foreground">
                 {formatDate(active.session_date)} &middot; share /checkin with runners
               </p>
             </div>
@@ -391,7 +396,7 @@ export function CheckinLive({
 
           {/* Count */}
           <div className="mb-6 rounded-2xl border border-border/50 bg-white p-8 text-center shadow-sm">
-            <p className="font-stat text-[0.6rem] tracking-[0.3em] uppercase text-muted-foreground/50">
+            <p className="font-stat text-[0.6rem] tracking-[0.3em] uppercase text-muted-foreground">
               checked in
             </p>
             <p className="font-stat text-7xl tabular-nums leading-none tracking-wide text-navy sm:text-8xl">
@@ -400,7 +405,7 @@ export function CheckinLive({
             <button
               onClick={loadCheckins}
               disabled={isPending}
-              className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground/40 transition-colors hover:text-muted-foreground disabled:opacity-50"
+              className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
             >
               <RefreshCw className={`h-3 w-3 ${isPending ? "animate-spin" : ""}`} />
               refresh
@@ -411,17 +416,10 @@ export function CheckinLive({
           {checkins.length > 0 && (
             <div className="mb-6 overflow-hidden rounded-2xl border border-border/50 bg-white shadow-sm">
               <div className="border-b border-border/30 px-5 py-3">
-                <div className="flex items-center justify-between">
-                  <h4 className="flex items-center gap-1.5 font-display text-xs uppercase tracking-widest text-muted-foreground">
-                    <Sparkles className="h-3.5 w-3.5" />
-                    raffle
-                  </h4>
-                  {excludedEmails.length > 0 && (
-                    <span className="text-[10px] text-muted-foreground/40">
-                      {excludedEmails.length} excluded
-                    </span>
-                  )}
-                </div>
+                <h4 className="flex items-center gap-1.5 font-display text-xs uppercase tracking-widest text-muted-foreground">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  raffle
+                </h4>
               </div>
 
               <div className="px-5 py-6 text-center">
@@ -432,36 +430,77 @@ export function CheckinLive({
                 )}
                 {raffleState === "done" && winner && (
                   <div>
-                    <p className="font-stat text-[0.55rem] tracking-[0.3em] uppercase text-muted-foreground/40">
+                    <p className="font-stat text-[0.55rem] tracking-[0.3em] uppercase text-muted-foreground">
                       winner
                     </p>
                     <p className="font-display text-4xl tracking-wide text-navy sm:text-5xl">
                       {displayName(winner.first_name, winner.last_name, winner.name)}
                     </p>
-                    <p className="mt-1 text-xs text-muted-foreground/40">{winner.email}</p>
-                    <button
-                      onClick={handleExcludeWinner}
-                      className="mt-4 text-xs text-muted-foreground/40 transition-colors hover:text-muted-foreground"
-                    >
-                      exclude &amp; draw again
-                    </button>
+                    <p className="mt-1 text-xs text-muted-foreground">{winner.email}</p>
                   </div>
                 )}
                 {raffleState === "idle" && (
-                  <p className="text-sm text-muted-foreground/40">
+                  <p className="text-sm text-muted-foreground">
                     {checkins.length - excludedEmails.length} eligible
+                    {excludedEmails.length > 0 && (
+                      <span className="ml-1 text-muted-foreground/70">
+                        ({excludedEmails.length} skipped)
+                      </span>
+                    )}
                   </p>
                 )}
               </div>
 
+              {excludedEmails.length > 0 && raffleState !== "spinning" && (
+                <div className="border-t border-border/30 bg-muted/30 px-5 py-3">
+                  <p className="mb-2 font-stat text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                    Skipped this raffle
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {excludedEmails.map((email) => {
+                      const c = checkinsByEmail.get(email);
+                      const name = c
+                        ? displayName(c.first_name, c.last_name, c.name)
+                        : email;
+                      return (
+                        <button
+                          key={email}
+                          onClick={() => handleUnexclude(email)}
+                          aria-label={`Put ${name} back in pool`}
+                          className="group inline-flex items-center gap-1 rounded-full border border-navy/15 bg-white px-2.5 py-1 text-[11px] font-medium text-navy transition-colors hover:border-navy/30 hover:bg-navy/[0.04]"
+                        >
+                          <span>{name}</span>
+                          <X className="h-2.5 w-2.5 text-muted-foreground transition-colors group-hover:text-navy" aria-hidden />
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
               <div className="border-t border-border/30 px-5 py-3">
                 <button
-                  onClick={handleRaffle}
+                  onClick={raffleState === "done" ? handleExcludeWinner : () => runRaffle(excludedEmails)}
                   disabled={isPending || raffleState === "spinning" || checkins.length - excludedEmails.length === 0}
-                  className="w-full rounded-xl bg-navy px-6 py-3 font-display text-sm tracking-wide text-white transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3 font-display text-sm tracking-wide text-white transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
                 >
-                  {raffleState === "done" ? "draw again" : "pick a winner"}
+                  {raffleState === "done" ? (
+                    <>
+                      <RefreshCw className="h-3.5 w-3.5" aria-hidden />
+                      Pick a new winner
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-3.5 w-3.5" aria-hidden />
+                      Pick a winner
+                    </>
+                  )}
                 </button>
+                {raffleState === "done" && winner && (
+                  <p className="mt-2 text-center text-[11px] text-muted-foreground">
+                    Skips {displayName(winner.first_name, winner.last_name, winner.name)} and draws someone else
+                  </p>
+                )}
               </div>
             </div>
           )}
@@ -477,19 +516,26 @@ export function CheckinLive({
             {checkins.length > 0 ? (
               <div className="divide-y divide-border/30">
                 {checkins.map((c) => (
-                  <div key={c.id} className="flex items-center justify-between gap-3 px-5 py-2.5">
-                    <div className="min-w-0 flex-1">
-                      <span className="text-sm text-foreground">
+                  <div key={c.id} className="px-5 py-3">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <span className="truncate text-sm font-medium text-foreground">
                         {displayName(c.first_name, c.last_name, c.name)}
                       </span>
-                      <span className="ml-2 text-xs text-muted-foreground/40">{c.email}</span>
-                      {c.phone && (
-                        <span className="ml-1.5 text-xs text-muted-foreground/30">{c.phone}</span>
-                      )}
+                      <span className="shrink-0 font-stat text-[10px] tabular-nums text-muted-foreground">
+                        {formatTime(c.checked_in_at)}
+                      </span>
                     </div>
-                    <span className="shrink-0 text-[10px] text-muted-foreground/30">
-                      {formatTime(c.checked_in_at)}
-                    </span>
+                    {(c.email || c.phone) && (
+                      <div className="mt-0.5 flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
+                        {c.email && <span className="truncate">{c.email}</span>}
+                        {c.email && c.phone && (
+                          <span aria-hidden className="text-muted-foreground/55">·</span>
+                        )}
+                        {c.phone && (
+                          <span className="shrink-0 tabular-nums">{formatPhone(c.phone)}</span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -641,7 +687,7 @@ export function CheckinLive({
                 <div key={s.id} className="flex items-center justify-between gap-3 px-5 py-3">
                   <div className="min-w-0 flex-1">
                     <span className="text-sm text-foreground">{s.title || s.day + " Run"}</span>
-                    <span className="ml-2 text-xs text-muted-foreground/40">
+                    <span className="ml-2 text-xs text-muted-foreground">
                       {formatDate(s.session_date)}
                     </span>
                   </div>
@@ -673,7 +719,7 @@ export function CheckinLive({
                       onClick={() => handleDelete(s.id)}
                       disabled={isPending}
                       aria-label={`Delete ${s.title || s.day + " Run"} session`}
-                      className="rounded-lg p-1.5 text-muted-foreground/40 transition-colors hover:bg-red-50 hover:text-red-500 disabled:opacity-50"
+                      className="rounded-lg p-1.5 text-muted-foreground/70 transition-colors hover:bg-red-50 hover:text-red-500 disabled:opacity-50"
                     >
                       <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
                     </button>
