@@ -524,7 +524,7 @@ export default async function ReportPage({ params }: Props) {
           VENDORS — Local businesses present at this run
           ═══════════════════════════════════════════════ */}
       {report.vendors.length > 0 && (
-        <section className="noise-bg relative overflow-hidden bg-secondary px-6 py-16 sm:py-24">
+        <section className="noise-bg relative overflow-hidden bg-warm-muted px-6 py-16 sm:py-24">
           {/* Subtle warm wash */}
           <div
             aria-hidden
