@@ -76,7 +76,7 @@ export default async function CheckinPage() {
             />
           </div>
 
-          <p className="mt-4 font-display text-[0.65rem] font-medium uppercase tracking-[0.3em] text-warm-light/50 sm:text-xs">
+          <p className="mt-4 font-display text-[0.65rem] font-medium uppercase tracking-[0.3em] text-warm-light/85 sm:text-xs">
             {config.fullName}
           </p>
         </div>
@@ -91,7 +91,7 @@ export default async function CheckinPage() {
               {session.title}
             </h1>
             {session.subtitle && (
-              <p className="mt-2.5 text-sm leading-relaxed text-white/40 sm:text-base">
+              <p className="mt-2.5 text-sm leading-relaxed text-white/85 sm:text-base">
                 {session.subtitle}
               </p>
             )}
@@ -99,7 +99,7 @@ export default async function CheckinPage() {
         )}
 
         {/* Main content area */}
-        <div className="flex flex-1 flex-col justify-center py-8">
+        <div className="flex flex-1 flex-col pb-8 pt-10 sm:pt-14">
           <div
             className="w-full animate-fade-up"
             style={{ animationDelay: "240ms" }}
@@ -108,6 +108,7 @@ export default async function CheckinPage() {
               <CheckinForm
                 sessionId={session.id}
                 eventDetails={session.event_details}
+                vendors={session.vendors}
               />
             ) : (
               <div className="text-center">
@@ -126,10 +127,10 @@ export default async function CheckinPage() {
                     className="relative h-36 w-auto opacity-20 saturate-50 sm:h-40"
                   />
                 </div>
-                <h2 className="font-display text-xl font-bold text-white/50">
+                <h2 className="font-display text-xl font-bold text-white/85">
                   no active check-in
                 </h2>
-                <p className="mt-3 text-sm leading-relaxed text-white/25">
+                <p className="mt-3 text-sm leading-relaxed text-white/65">
                   Check-in opens when the run starts.
                   <br />
                   See you out there.

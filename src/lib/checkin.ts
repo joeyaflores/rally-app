@@ -10,6 +10,11 @@ import crypto from "crypto";
 
 export type SessionTheme = "navy" | "green" | "orange" | "black" | "pink";
 
+export interface Vendor {
+  name: string;
+  instagram: string;
+}
+
 export interface CheckinSession {
   id: string;
   title: string;
@@ -17,12 +22,57 @@ export interface CheckinSession {
   theme: SessionTheme;
   image_url: string;
   event_details: string;
+  vendors: Vendor[];
   session_date: string;
   day: string;
   status: "open" | "closed";
   opened_at: string;
   closed_at: string | null;
   created_at: string;
+}
+
+const IG_HANDLE_PREFIX = /^https?:\/\/(www\.)?instagram\.com\//i;
+
+function normalizeIgHandle(input: string): string {
+  return input
+    .trim()
+    .replace(IG_HANDLE_PREFIX, "")
+    .replace(/^@+/, "")
+    .replace(/\/+$/, "")
+    .toLowerCase();
+}
+
+function parseVendors(raw: string | null | undefined): Vendor[] {
+  if (!raw) return [];
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    const out: Vendor[] = [];
+    for (const v of parsed) {
+      if (!v || typeof v !== "object") continue;
+      const name = typeof (v as Vendor).name === "string" ? (v as Vendor).name : "";
+      const instagram = typeof (v as Vendor).instagram === "string" ? (v as Vendor).instagram : "";
+      if (!instagram) continue;
+      out.push({ name, instagram });
+    }
+    return out;
+  } catch {
+    return [];
+  }
+}
+
+function sanitizeVendors(input: Vendor[] | undefined): Vendor[] {
+  if (!input) return [];
+  const out: Vendor[] = [];
+  for (const v of input) {
+    const handle = normalizeIgHandle(v.instagram ?? "");
+    if (!handle) continue;
+    out.push({
+      name: (v.name ?? "").trim().slice(0, 100),
+      instagram: handle.slice(0, 100),
+    });
+  }
+  return out.slice(0, 20);
 }
 
 export interface CheckinSessionWithCount extends CheckinSession {
@@ -59,17 +109,18 @@ export interface Member {
 
 export type OpenSession = Pick<
   CheckinSession,
-  "id" | "title" | "subtitle" | "theme" | "image_url" | "event_details" | "session_date" | "day"
+  "id" | "title" | "subtitle" | "theme" | "image_url" | "event_details" | "vendors" | "session_date" | "day"
 >;
 
 export async function getOpenSession(): Promise<OpenSession | null> {
   const db = getDb();
   const row = db
     .prepare(
-      "SELECT id, title, subtitle, theme, image_url, event_details, session_date, day FROM checkin_sessions WHERE status = 'open' LIMIT 1"
+      "SELECT id, title, subtitle, theme, image_url, event_details, vendors, session_date, day FROM checkin_sessions WHERE status = 'open' LIMIT 1"
     )
-    .get() as OpenSession | undefined;
-  return row ?? null;
+    .get() as (Omit<OpenSession, "vendors"> & { vendors: string }) | undefined;
+  if (!row) return null;
+  return { ...row, vendors: parseVendors(row.vendors) };
 }
 
 export async function submitCheckin(opts: {
@@ -172,6 +223,7 @@ export async function openCheckinSession(opts: {
   theme?: SessionTheme;
   imageUrl?: string;
   eventDetails?: string;
+  vendors?: Vendor[];
 }): Promise<{ ok: boolean; session?: CheckinSession; error?: string }> {
   await requireAuth();
   const db = getDb();
@@ -184,15 +236,17 @@ export async function openCheckinSession(opts: {
   }
 
   const { title, sessionDate, day, subtitle = "", theme = "navy", imageUrl = "", eventDetails = "" } = opts;
+  const vendors = sanitizeVendors(opts.vendors);
 
   const id = crypto.randomUUID();
   db.prepare(
-    "INSERT INTO checkin_sessions (id, title, subtitle, theme, image_url, event_details, session_date, day) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-  ).run(id, title.trim(), subtitle.trim(), theme, imageUrl.trim(), eventDetails.trim(), sessionDate, day);
+    "INSERT INTO checkin_sessions (id, title, subtitle, theme, image_url, event_details, vendors, session_date, day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+  ).run(id, title.trim(), subtitle.trim(), theme, imageUrl.trim(), eventDetails.trim(), JSON.stringify(vendors), sessionDate, day);
 
-  const session = db
+  const row = db
     .prepare("SELECT * FROM checkin_sessions WHERE id = ?")
-    .get(id) as CheckinSession;
+    .get(id) as Omit<CheckinSession, "vendors"> & { vendors: string };
+  const session: CheckinSession = { ...row, vendors: parseVendors(row.vendors) };
 
   revalidatePath("/checkin");
   return { ok: true, session };
@@ -239,6 +293,8 @@ export async function closeCheckinSession(
   return result;
 }
 
+type CheckinSessionRow = Omit<CheckinSession, "vendors"> & { vendors: string };
+
 export async function getActiveSession(): Promise<CheckinSessionWithCount | null> {
   await requireAuth();
   const db = getDb();
@@ -251,8 +307,9 @@ export async function getActiveSession(): Promise<CheckinSessionWithCount | null
        GROUP BY s.id
        LIMIT 1`
     )
-    .get() as (CheckinSession & { checkin_count: number }) | undefined;
-  return row ?? null;
+    .get() as (CheckinSessionRow & { checkin_count: number }) | undefined;
+  if (!row) return null;
+  return { ...row, vendors: parseVendors(row.vendors) };
 }
 
 export async function getCheckinSessions(
@@ -260,7 +317,7 @@ export async function getCheckinSessions(
 ): Promise<CheckinSessionWithCount[]> {
   await requireAuth();
   const db = getDb();
-  return db
+  const rows = db
     .prepare(
       `SELECT s.*, COUNT(c.id) as checkin_count
        FROM checkin_sessions s
@@ -269,7 +326,8 @@ export async function getCheckinSessions(
        ORDER BY s.created_at DESC
        LIMIT ?`
     )
-    .all(limit) as CheckinSessionWithCount[];
+    .all(limit) as (CheckinSessionRow & { checkin_count: number })[];
+  return rows.map((r) => ({ ...r, vendors: parseVendors(r.vendors) }));
 }
 
 export async function getSessionCheckins(sessionId: string): Promise<Checkin[]> {

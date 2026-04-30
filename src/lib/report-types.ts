@@ -1,4 +1,5 @@
 import type { SocialPost } from "./analytics-types";
+import type { Vendor } from "./checkin";
 
 export interface ReportHighlight {
   label: string;
@@ -25,6 +26,7 @@ export interface EventReport {
   hero_image_url: string;
   highlights: ReportHighlight[];
   sponsors: ReportSponsor[];
+  vendors: Vendor[];
   images: string[];
   excluded_post_ids: string[];
   drive_url: string;

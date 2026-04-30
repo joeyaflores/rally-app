@@ -1,14 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { submitCheckin } from "@/lib/checkin";
+import type { Vendor } from "@/lib/checkin";
 import { getMilestone } from "@/lib/milestones";
+import { VendorList } from "@/components/vendor-list";
 import config from "@rally";
 
 interface Props {
   sessionId: string;
   eventDetails?: string;
+  vendors?: Vendor[];
 }
 
 const LS_KEY = config.checkin.localStorageKey;
@@ -55,7 +57,7 @@ function getSaved(): SavedInfo | null {
 }
 
 const INPUT_CLASS =
-  "w-full rounded-2xl border border-white/[0.08] bg-white/[0.05] px-5 py-4 text-[16px] leading-6 text-white placeholder:text-white/30 outline-none transition-all duration-200 focus-visible:border-warm/40 focus-visible:bg-white/[0.08] focus-visible:ring-1 focus-visible:ring-warm/20";
+  "w-full rounded-2xl border border-white/[0.08] bg-white/[0.05] px-5 py-4 text-[16px] leading-6 text-white placeholder:text-white/65 outline-none transition-all duration-200 focus-visible:border-warm/40 focus-visible:bg-white/[0.08] focus-visible:ring-1 focus-visible:ring-warm/20";
 
 const SELECT_CLASS =
   "w-full appearance-none rounded-2xl border border-white/[0.08] bg-white/[0.05] px-5 py-4 pr-10 text-[16px] leading-6 text-white outline-none transition-all duration-200 focus-visible:border-warm/40 focus-visible:bg-white/[0.08] focus-visible:ring-1 focus-visible:ring-warm/20";
@@ -78,7 +80,7 @@ const MONTHS = [
 
 const DAYS = Array.from({ length: 31 }, (_, i) => i + 1);
 
-export function CheckinForm({ sessionId, eventDetails }: Props) {
+export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -148,34 +150,49 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
 
     return (
       <div className="text-center">
-        {/* Mascot with animated golden ring */}
-        <div className="relative mx-auto mb-6 h-28 w-28 sm:h-32 sm:w-32">
+        {/* Celebration mark — golden ring + checkmark, runner-centered (no duplicate brand mascot) */}
+        <div aria-hidden className="relative mx-auto mb-6 h-28 w-28 sm:h-32 sm:w-32">
           {/* Pulse ring that radiates outward */}
           <div
             className="absolute inset-0 rounded-full border border-warm/25"
-            style={{
-              animation: "checkin-pulse-out 1.2s ease-out 0.4s both",
-            }}
+            style={{ animation: "checkin-pulse-out 1.2s ease-out 0.4s both" }}
           />
           {/* Golden ring */}
           <div
             className="absolute inset-0 rounded-full border-2 border-warm/40"
             style={{
-              animation: "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, checkin-glow-warm 1.2s ease-out 0.3s both",
+              animation:
+                "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, checkin-glow-warm 1.2s ease-out 0.3s both",
             }}
           />
-          {/* Mascot inside ring */}
+          {/* Soft warm disc + checkmark */}
           <div
-            className="absolute inset-0 flex items-center justify-center"
-            style={{ animation: "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both" }}
+            className="absolute inset-2 flex items-center justify-center rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(244,205,11,0.18) 0%, rgba(226,184,8,0.06) 60%, transparent 100%)",
+              animation: "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both",
+            }}
           >
-            <Image
-              src="/logo-mascot.png"
-              alt=""
-              width={80}
-              height={100}
-              className="h-16 w-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.3)] sm:h-20"
-            />
+            <svg
+              viewBox="0 0 48 48"
+              fill="none"
+              className="h-12 w-12 text-warm-light drop-shadow-[0_2px_12px_rgba(244,205,11,0.45)] sm:h-14 sm:w-14"
+            >
+              <path
+                d="M14 25l7 7 13-15"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                pathLength="1"
+                style={{
+                  strokeDasharray: 1,
+                  strokeDashoffset: 1,
+                  animation: "checkin-draw 0.55s cubic-bezier(0.65, 0, 0.35, 1) 0.35s forwards",
+                }}
+              />
+            </svg>
           </div>
         </div>
 
@@ -199,15 +216,14 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
         {/* Personal detail — first-timer gets warm welcome, regulars get their run count */}
         <div style={{ animation: "fade-up 0.5s ease-out 0.7s both" }}>
           {isFirstEver ? (
-            <p className="mt-3 text-sm text-white/50">
-              {config.terms.greeting}, {firstName.trim().toLowerCase()}. this is your first run with us.
+            <p className="mt-3 text-sm text-white/85">
+              welcome, {firstName.trim().toLowerCase()}. this is your first run with us.
             </p>
           ) : (
-            <p className="mt-3 text-sm text-white/50">
-              {config.terms.greeting}, {firstName.trim().toLowerCase()}.
-              <span className="ml-1 text-white/70">
-                run #{totalCheckins}
-              </span>
+            <p className="mt-3 text-sm text-white/85">
+              {config.terms.greeting}, {firstName.trim().toLowerCase()}{" "}
+              <span aria-hidden className="mx-1 text-white/55">·</span>{" "}
+              <span className="text-white">run #{totalCheckins}</span>
             </p>
           )}
         </div>
@@ -221,6 +237,9 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
           </div>
         )}
 
+        {/* Vendors — local businesses at this run */}
+        <VendorList vendors={vendors} baseDelay={1.0} />
+
         {/* Event details — unlocked after check-in */}
         {eventDetails && (
           <div
@@ -228,10 +247,10 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
             style={{ animation: "fade-up 0.6s ease-out 1.1s both" }}
           >
             <div className="mx-auto mb-4 h-px w-12 bg-warm/20" />
-            <p className="mb-4 font-stat text-xs tracking-[0.3em] uppercase text-white/30 sm:text-sm">
+            <p className="mb-4 font-stat text-xs tracking-[0.3em] uppercase text-white/75 sm:text-sm">
               today&apos;s run
             </p>
-            <div className="space-y-3 text-base leading-relaxed text-white/50">
+            <div className="space-y-3 text-base leading-relaxed text-white/85">
               {eventDetails.split("\n").filter(Boolean).map((line, i) => (
                 <p
                   key={i}
@@ -253,8 +272,8 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
     <div className="w-full">
       {/* Quick check-in for returning runners */}
       {showQuickCheckin && (
-        <div className="mb-8 text-center">
-          <p className="mb-4 text-sm text-white/40">
+        <div className="mb-8 mt-8 text-center sm:mt-2">
+          <p className="mb-4 text-sm text-white/75">
             welcome back, {saved.firstName.toLowerCase()}
           </p>
           <button
@@ -266,7 +285,7 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
           </button>
           <button
             onClick={() => setUseManual(true)}
-            className="mt-4 text-xs text-white/25 transition-colors hover:text-warm/60"
+            className="mt-4 text-xs text-white/65 transition-colors hover:text-warm/60"
           >
             not {saved.firstName.toLowerCase()}? check in manually
           </button>
@@ -347,12 +366,12 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
           {/* Birthday — labeled section with month + day selects */}
           <fieldset className="space-y-2.5">
             <div className="flex items-center gap-2 px-1">
-              <svg className="h-3.5 w-3.5 text-warm-light/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="h-3.5 w-3.5 text-warm-light/75" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87" />
                 <path d="M16 3.13a4 4 0 0 1 0 7.75M8 3.13a4 4 0 0 0 0 7.75" />
                 <path d="M12 11V3M9 6h6" />
               </svg>
-              <legend className="text-[0.7rem] font-medium uppercase tracking-widest text-white/35">
+              <legend className="text-[0.7rem] font-medium uppercase tracking-widest text-white/75">
                 birthday
               </legend>
             </div>
@@ -365,16 +384,16 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
                     if (state === "error") setState("idle");
                   }}
                   aria-label="Birth month"
-                  className={`${SELECT_CLASS} ${birthMonth === 0 ? "text-white/30" : ""}`}
+                  className={`${SELECT_CLASS} ${birthMonth === 0 ? "text-white/65" : ""}`}
                 >
-                  <option value={0} className="bg-neutral-900 text-white/50">month</option>
+                  <option value={0} className="bg-neutral-900 text-white/75">month</option>
                   {MONTHS.map((m) => (
                     <option key={m.value} value={m.value} className="bg-neutral-900 text-white">
                       {m.label}
                     </option>
                   ))}
                 </select>
-                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/25">
+                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/55">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </div>
               </div>
@@ -386,16 +405,16 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
                     if (state === "error") setState("idle");
                   }}
                   aria-label="Birth day"
-                  className={`${SELECT_CLASS} ${birthDay === 0 ? "text-white/30" : ""}`}
+                  className={`${SELECT_CLASS} ${birthDay === 0 ? "text-white/65" : ""}`}
                 >
-                  <option value={0} className="bg-neutral-900 text-white/50">day</option>
+                  <option value={0} className="bg-neutral-900 text-white/75">day</option>
                   {DAYS.map((d) => (
                     <option key={d} value={d} className="bg-neutral-900 text-white">
                       {d}
                     </option>
                   ))}
                 </select>
-                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/25">
+                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/55">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </div>
               </div>
@@ -414,7 +433,7 @@ export function CheckinForm({ sessionId, eventDetails }: Props) {
             {state === "loading" ? "\u2026" : "check in"}
           </button>
 
-          <p className="text-center text-[0.65rem] leading-relaxed text-white/25">
+          <p className="text-center text-[0.65rem] leading-relaxed text-white/55">
             {config.checkin.privacyNotice}
           </p>
         </form>

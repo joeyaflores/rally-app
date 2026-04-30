@@ -14,6 +14,7 @@ import type {
   ReportHighlight,
   ReportSponsor,
 } from "./report-types";
+import type { Vendor } from "./checkin";
 import type { IGMetrics, TTMetrics, StravaMetrics, SocialPost } from "./analytics-types";
 
 // ─── Helpers ───
@@ -34,6 +35,7 @@ function parseRow(row: Record<string, unknown>): EventReport {
     ...row,
     highlights: JSON.parse((row.highlights as string) || "[]"),
     sponsors: JSON.parse((row.sponsors as string) || "[]"),
+    vendors: JSON.parse((row.vendors as string) || "[]"),
     images: JSON.parse((row.images as string) || "[]"),
     excluded_post_ids: JSON.parse((row.excluded_post_ids as string) || "[]"),
   } as EventReport;
@@ -266,6 +268,7 @@ export async function updateReport(
     hero_image_url: string;
     highlights: ReportHighlight[];
     sponsors: ReportSponsor[];
+    vendors: Vendor[];
     images: string[];
     content_start: string | null;
     content_end: string | null;
@@ -282,7 +285,7 @@ export async function updateReport(
 
   for (const [key, val] of Object.entries(data)) {
     if (val === undefined) continue;
-    if (key === "highlights" || key === "sponsors" || key === "images") {
+    if (key === "highlights" || key === "sponsors" || key === "vendors" || key === "images") {
       sets.push(`${key} = ?`);
       values.push(JSON.stringify(val));
     } else if (key === "published") {
@@ -338,8 +341,8 @@ export async function createReportFromSession(
 
   // Look up session
   const session = db
-    .prepare("SELECT title, session_date, day FROM checkin_sessions WHERE id = ?")
-    .get(sessionId) as { title: string; session_date: string; day: string } | undefined;
+    .prepare("SELECT title, session_date, day, vendors FROM checkin_sessions WHERE id = ?")
+    .get(sessionId) as { title: string; session_date: string; day: string; vendors: string } | undefined;
   if (!session) return { ok: false, error: "Session not found" };
 
   const [yearStr, monthStr] = session.session_date.split("-");
@@ -349,9 +352,9 @@ export async function createReportFromSession(
   db.prepare(
     `INSERT INTO event_reports (
       id, token, title, event_date, location, description,
-      session_id, highlights, sponsors, images,
+      session_id, highlights, sponsors, vendors, images,
       metrics_year, metrics_month, published
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, '[]', '[]', '[]', ?, ?, 0)`
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, '[]', '[]', ?, '[]', ?, ?, 0)`
   ).run(
     id,
     token,
@@ -360,6 +363,7 @@ export async function createReportFromSession(
     config.report.defaultLocation,
     "",
     sessionId,
+    session.vendors || "[]",
     parseInt(yearStr),
     parseInt(monthStr),
   );

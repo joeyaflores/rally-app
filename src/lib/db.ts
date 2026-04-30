@@ -241,6 +241,8 @@ export function getDb() {
     addCol("checkin_sessions", "theme", "TEXT NOT NULL DEFAULT 'navy'");
     addCol("checkin_sessions", "image_url", "TEXT NOT NULL DEFAULT ''");
     addCol("checkin_sessions", "event_details", "TEXT NOT NULL DEFAULT ''");
+    addCol("checkin_sessions", "vendors", "TEXT NOT NULL DEFAULT '[]'");
+    addCol("event_reports", "vendors", "TEXT NOT NULL DEFAULT '[]'");
 
     // Add first_name, last_name, phone to checkins + members.
     for (const t of ["checkins", "members"] as const) {

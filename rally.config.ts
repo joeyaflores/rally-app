@@ -137,7 +137,7 @@ const config: RallyConfig = {
     community: "la comunidad",
     member: "runners",
     memberSingular: "runner",
-    greeting: "más millas",
+    greeting: "welcome back",
     welcome: "everyone's welcome",
     cta: "come run with us",
   },

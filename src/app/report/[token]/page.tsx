@@ -521,6 +521,97 @@ export default async function ReportPage({ params }: Props) {
       )}
 
       {/* ═══════════════════════════════════════════════
+          VENDORS — Local businesses present at this run
+          ═══════════════════════════════════════════════ */}
+      {report.vendors.length > 0 && (
+        <section className="noise-bg relative overflow-hidden bg-secondary px-6 py-16 sm:py-24">
+          {/* Subtle warm wash */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-60"
+            style={{
+              background:
+                "radial-gradient(ellipse at top, rgba(226,184,8,0.08) 0%, transparent 55%)",
+            }}
+          />
+
+          <div className="relative z-10 mx-auto max-w-3xl">
+            <p
+              className="animate-fade-up text-center font-stat text-[0.65rem] uppercase tracking-[0.32em] text-warm/70 sm:text-xs"
+              style={{ animationDelay: "80ms" }}
+            >
+              on the ground
+            </p>
+            <h2
+              className="animate-fade-up mt-2 text-center font-display text-2xl tracking-tight text-navy sm:text-3xl"
+              style={{ animationDelay: "140ms" }}
+            >
+              neighborhood vendors
+            </h2>
+            <p
+              className="animate-fade-up mt-2 text-center text-sm text-muted-foreground"
+              style={{ animationDelay: "200ms" }}
+            >
+              small businesses that showed up for the run — give them a follow
+            </p>
+
+            <ul
+              className={`animate-fade-up mt-10 grid gap-3 ${
+                report.vendors.length === 1
+                  ? "mx-auto max-w-md grid-cols-1"
+                  : "grid-cols-1 sm:grid-cols-2"
+              }`}
+              style={{ animationDelay: "300ms" }}
+            >
+              {report.vendors.map((v, i) => (
+                <li key={`${v.instagram}-${i}`}>
+                  <a
+                    href={`https://instagram.com/${v.instagram}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative flex items-center gap-3.5 overflow-hidden rounded-2xl border border-navy/[0.06] bg-white px-4 py-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-warm/30 hover:shadow-md sm:px-5"
+                  >
+                    <span
+                      aria-hidden
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-warm/25 to-warm/[0.06] text-navy/80 transition-all duration-200 group-hover:from-warm/40 group-hover:to-warm/10 group-hover:text-navy"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-[18px] w-[18px]"
+                      >
+                        <rect x="3" y="3" width="18" height="18" rx="5" />
+                        <circle cx="12" cy="12" r="4" />
+                        <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+                      </svg>
+                    </span>
+
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate font-display text-base leading-tight tracking-tight text-navy sm:text-lg">
+                        {v.name || `@${v.instagram}`}
+                      </span>
+                      <span className="mt-0.5 block truncate text-xs text-muted-foreground/70">
+                        @{v.instagram}
+                      </span>
+                    </span>
+
+                    <ExternalLink
+                      aria-hidden
+                      className="h-3.5 w-3.5 shrink-0 text-navy/25 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-warm"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════════════════════════════════════════
           PARTNERS — Sponsor showcase + CTA
           ═══════════════════════════════════════════════ */}
       {report.sponsors.length > 0 && (

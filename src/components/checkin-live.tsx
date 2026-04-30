@@ -24,9 +24,10 @@ import {
 } from "@/lib/checkin";
 import { createReportFromSession, publishReport } from "@/lib/reports";
 import { BASE_URL } from "@/lib/socials";
-import type { CheckinSessionWithCount, Checkin, SessionTheme } from "@/lib/checkin";
+import type { CheckinSessionWithCount, Checkin, SessionTheme, Vendor } from "@/lib/checkin";
 import { formatDate, displayName } from "@/lib/format";
 import { THEMES } from "@/lib/themes";
+import { VendorEditor } from "@/components/vendor-editor";
 
 const DAY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
@@ -72,6 +73,7 @@ export function CheckinLive({
   const [newTheme, setNewTheme] = useState<SessionTheme>("navy");
   const [newImageUrl, setNewImageUrl] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [newVendors, setNewVendors] = useState<Vendor[]>([]);
   const [newDate, setNewDate] = useState(now.toISOString().slice(0, 10));
   const [newDay, setNewDay] = useState(DAY_OPTIONS[now.getDay() === 0 ? 6 : now.getDay() - 1]);
 
@@ -156,6 +158,7 @@ export function CheckinLive({
         theme: newTheme,
         imageUrl: newImageUrl,
         eventDetails: newEventDetails,
+        vendors: newVendors,
       });
       if (result.ok && result.session) {
         const newSession = { ...result.session, checkin_count: 0 };
@@ -168,6 +171,7 @@ export function CheckinLive({
         setNewEventDetails("");
         setNewTheme("navy");
         setNewImageUrl("");
+        setNewVendors([]);
         setCheckins([]);
       } else {
         setError(result.error ?? "Failed to open session.");
@@ -505,10 +509,10 @@ export function CheckinLive({
       ) : (
         <section>
           <div className="mb-4">
-            <h3 className="font-display text-sm font-medium uppercase tracking-widest text-muted-foreground">
+            <h3 className="font-display text-sm font-medium uppercase tracking-widest text-foreground">
               check-in sessions
             </h3>
-            <p className="mt-1 font-display text-[11px] uppercase text-muted-foreground/60">
+            <p className="mt-1 font-display text-[11px] uppercase text-foreground/75">
               open a session to start collecting check-ins at your run
             </p>
           </div>
@@ -531,7 +535,7 @@ export function CheckinLive({
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="session name…"
                   aria-label="Session name"
-                  className="w-full rounded-lg border border-border/50 bg-white px-3 py-2 text-sm outline-none transition-colors placeholder:text-muted-foreground/40 focus-visible:border-navy/30 focus-visible:ring-1 focus-visible:ring-navy/10"
+                  className="w-full rounded-lg border border-border/50 bg-white px-3 py-2 text-sm outline-none transition-colors placeholder:text-foreground/60 focus-visible:border-navy/30 focus-visible:ring-1 focus-visible:ring-navy/10"
                 />
                 <input
                   type="text"
@@ -540,7 +544,7 @@ export function CheckinLive({
                   onChange={(e) => setNewSubtitle(e.target.value)}
                   placeholder="tagline for check-in page…"
                   aria-label="Event subtitle"
-                  className="w-full rounded-lg border border-border/50 bg-white px-3 py-2 text-sm outline-none transition-colors placeholder:text-muted-foreground/40 focus-visible:border-navy/30 focus-visible:ring-1 focus-visible:ring-navy/10"
+                  className="w-full rounded-lg border border-border/50 bg-white px-3 py-2 text-sm outline-none transition-colors placeholder:text-foreground/60 focus-visible:border-navy/30 focus-visible:ring-1 focus-visible:ring-navy/10"
                 />
                 <textarea
                   name="session-event-details"
@@ -549,7 +553,7 @@ export function CheckinLive({
                   placeholder={"run details shown after check-in…\none line per item"}
                   aria-label="Event details"
                   rows={3}
-                  className="w-full resize-none rounded-lg border border-border/50 bg-white px-3 py-2 text-sm outline-none transition-colors placeholder:text-muted-foreground/40 focus-visible:border-navy/30 focus-visible:ring-1 focus-visible:ring-navy/10"
+                  className="w-full resize-none rounded-lg border border-border/50 bg-white px-3 py-2 text-sm outline-none transition-colors placeholder:text-foreground/60 focus-visible:border-navy/30 focus-visible:ring-1 focus-visible:ring-navy/10"
                 />
                 <div className="flex gap-3">
                   <input
@@ -575,7 +579,7 @@ export function CheckinLive({
 
                 {/* Theme picker */}
                 <div>
-                  <p className="mb-2 font-display text-[11px] uppercase text-muted-foreground/50">check-in page theme</p>
+                  <p className="mb-2 font-display text-[11px] uppercase text-foreground">check-in page theme</p>
                   <div className="flex gap-2">
                     {THEME_KEYS.map((key) => (
                       <button
@@ -595,7 +599,7 @@ export function CheckinLive({
 
                 {/* Image upload */}
                 <div>
-                  <p className="mb-2 font-display text-[11px] uppercase text-muted-foreground/50">background image</p>
+                  <p className="mb-2 font-display text-[11px] uppercase text-foreground">background image</p>
                   {newImageUrl ? (
                     <div className="relative inline-block">
                       <img
@@ -612,7 +616,7 @@ export function CheckinLive({
                       </button>
                     </div>
                   ) : (
-                    <label className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-dashed border-border/60 px-3 py-2 font-display text-xs uppercase text-muted-foreground/50 transition-colors hover:border-navy/30 hover:text-muted-foreground">
+                    <label className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-dashed border-border/60 px-3 py-2 font-display text-xs uppercase text-foreground transition-colors hover:border-navy/30 hover:bg-secondary/30">
                       <Upload className="h-3 w-3" />
                       {uploadingImage ? "uploading…" : "upload image"}
                       <input
@@ -627,6 +631,8 @@ export function CheckinLive({
                     </label>
                   )}
                 </div>
+
+                <VendorEditor vendors={newVendors} onChange={setNewVendors} />
               </div>
               <div className="flex gap-2 border-t border-border/30 bg-secondary/20 px-5 py-3">
                 <button
@@ -639,7 +645,7 @@ export function CheckinLive({
                 </button>
                 <button
                   onClick={() => setShowOpen(false)}
-                  className="rounded-lg px-3 py-2 font-display text-sm uppercase text-muted-foreground transition-colors hover:bg-secondary/50"
+                  className="rounded-lg px-3 py-2 font-display text-sm uppercase text-foreground transition-colors hover:bg-secondary/50"
                 >
                   cancel
                 </button>
