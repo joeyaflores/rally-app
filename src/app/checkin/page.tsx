@@ -128,7 +128,7 @@ export default async function CheckinPage() {
                   />
                 </div>
                 <h2 className="font-display text-xl font-bold text-white/85">
-                  no active check-in
+                  No active check-in
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-white/65">
                   Check-in opens when the run starts.

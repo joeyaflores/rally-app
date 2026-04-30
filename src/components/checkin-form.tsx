@@ -5,6 +5,7 @@ import { submitCheckin } from "@/lib/checkin";
 import type { Vendor } from "@/lib/checkin";
 import { getMilestone } from "@/lib/milestones";
 import { VendorList } from "@/components/vendor-list";
+import { GrowingCactus } from "@/components/growing-cactus";
 import config from "@rally";
 
 interface Props {
@@ -64,18 +65,18 @@ const SELECT_CLASS =
 
 // Hoisted static data — never recreated (rendering-hoist-jsx)
 const MONTHS = [
-  { value: 1, label: "jan" },
-  { value: 2, label: "feb" },
-  { value: 3, label: "mar" },
-  { value: 4, label: "apr" },
-  { value: 5, label: "may" },
-  { value: 6, label: "jun" },
-  { value: 7, label: "jul" },
-  { value: 8, label: "aug" },
-  { value: 9, label: "sep" },
-  { value: 10, label: "oct" },
-  { value: 11, label: "nov" },
-  { value: 12, label: "dec" },
+  { value: 1, label: "Jan" },
+  { value: 2, label: "Feb" },
+  { value: 3, label: "Mar" },
+  { value: 4, label: "Apr" },
+  { value: 5, label: "May" },
+  { value: 6, label: "Jun" },
+  { value: 7, label: "Jul" },
+  { value: 8, label: "Aug" },
+  { value: 9, label: "Sep" },
+  { value: 10, label: "Oct" },
+  { value: 11, label: "Nov" },
+  { value: 12, label: "Dec" },
 ] as const;
 
 const DAYS = Array.from({ length: 31 }, (_, i) => i + 1);
@@ -165,7 +166,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
                 "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, checkin-glow-warm 1.2s ease-out 0.3s both",
             }}
           />
-          {/* Soft warm disc + checkmark */}
+          {/* Soft warm disc + growing cactus */}
           <div
             className="absolute inset-2 flex items-center justify-center rounded-full"
             style={{
@@ -174,25 +175,10 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
               animation: "checkin-ring 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both",
             }}
           >
-            <svg
-              viewBox="0 0 48 48"
-              fill="none"
-              className="h-12 w-12 text-warm-light drop-shadow-[0_2px_12px_rgba(244,205,11,0.45)] sm:h-14 sm:w-14"
-            >
-              <path
-                d="M14 25l7 7 13-15"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                pathLength="1"
-                style={{
-                  strokeDasharray: 1,
-                  strokeDashoffset: 1,
-                  animation: "checkin-draw 0.55s cubic-bezier(0.65, 0, 0.35, 1) 0.35s forwards",
-                }}
-              />
-            </svg>
+            <GrowingCactus
+              checkins={totalCheckins}
+              className="h-[5.5rem] w-auto drop-shadow-[0_2px_10px_rgba(244,205,11,0.35)] sm:h-[6.5rem]"
+            />
           </div>
         </div>
 
@@ -200,7 +186,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
         <div style={{ animation: "fade-up 0.5s ease-out 0.5s both" }}>
           {state === "already" ? (
             <h2 className="font-display text-2xl tracking-wide text-white sm:text-3xl">
-              already checked in
+              Already checked in
             </h2>
           ) : isFirstEver ? (
             <h2 className="font-display text-2xl tracking-wide text-white sm:text-3xl">
@@ -208,7 +194,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
             </h2>
           ) : (
             <h2 className="font-display text-2xl tracking-wide text-white sm:text-3xl">
-              you&rsquo;re checked in
+              You&rsquo;re checked in
             </h2>
           )}
         </div>
@@ -217,13 +203,13 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
         <div style={{ animation: "fade-up 0.5s ease-out 0.7s both" }}>
           {isFirstEver ? (
             <p className="mt-3 text-sm text-white/85">
-              welcome, {firstName.trim().toLowerCase()}. this is your first run with us.
+              Welcome, {firstName.trim()}. This is your first run with us.
             </p>
           ) : (
             <p className="mt-3 text-sm text-white/85">
-              {config.terms.greeting}, {firstName.trim().toLowerCase()}{" "}
+              {config.terms.greeting}, {firstName.trim()}{" "}
               <span aria-hidden className="mx-1 text-white/55">·</span>{" "}
-              <span className="text-white">run #{totalCheckins}</span>
+              <span className="text-white">Run #{totalCheckins}</span>
             </p>
           )}
         </div>
@@ -248,7 +234,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
           >
             <div className="mx-auto mb-4 h-px w-12 bg-warm/20" />
             <p className="mb-4 font-stat text-xs tracking-[0.3em] uppercase text-white/75 sm:text-sm">
-              today&apos;s run
+              Today&apos;s run
             </p>
             <div className="space-y-3 text-base leading-relaxed text-white/85">
               {eventDetails.split("\n").filter(Boolean).map((line, i) => (
@@ -274,20 +260,20 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
       {showQuickCheckin && (
         <div className="mb-8 mt-8 text-center sm:mt-2">
           <p className="mb-4 text-sm text-white/75">
-            welcome back, {saved.firstName.toLowerCase()}
+            Welcome back, {saved.firstName}
           </p>
           <button
             onClick={() => doCheckin(saved.firstName, saved.lastName, saved.email, saved.phone, saved.birthMonth, saved.birthDay)}
             disabled={state === "loading"}
             className="w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg font-semibold tracking-wide text-navy-dark shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
           >
-            {state === "loading" ? "\u2026" : "i\u2019m here"}
+            {state === "loading" ? "\u2026" : "I\u2019m here"}
           </button>
           <button
             onClick={() => setUseManual(true)}
             className="mt-4 text-xs text-white/65 transition-colors hover:text-warm/60"
           >
-            not {saved.firstName.toLowerCase()}? check in manually
+            Not {saved.firstName}? Check in manually
           </button>
         </div>
       )}
@@ -311,7 +297,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
                 setFirstName(e.target.value);
                 if (state === "error") setState("idle");
               }}
-              placeholder="first name"
+              placeholder="First name"
               required
               autoComplete="given-name"
               aria-label="First name"
@@ -325,7 +311,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
                 setLastName(e.target.value);
                 if (state === "error") setState("idle");
               }}
-              placeholder="last name"
+              placeholder="Last name"
               required
               autoComplete="family-name"
               aria-label="Last name"
@@ -341,7 +327,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
               setEmail(e.target.value);
               if (state === "error") setState("idle");
             }}
-            placeholder="email"
+            placeholder="Email"
             required
             autoComplete="email"
             spellCheck={false}
@@ -357,7 +343,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
               setPhone(e.target.value);
               if (state === "error") setState("idle");
             }}
-            placeholder="phone"
+            placeholder="Phone"
             autoComplete="tel"
             aria-label="Phone number"
             className={INPUT_CLASS}
@@ -372,7 +358,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
                 <path d="M12 11V3M9 6h6" />
               </svg>
               <legend className="text-[0.7rem] font-medium uppercase tracking-widest text-white/75">
-                birthday
+                Birthday
               </legend>
             </div>
             <div className="flex gap-3">
@@ -386,7 +372,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
                   aria-label="Birth month"
                   className={`${SELECT_CLASS} ${birthMonth === 0 ? "text-white/65" : ""}`}
                 >
-                  <option value={0} className="bg-neutral-900 text-white/75">month</option>
+                  <option value={0} className="bg-neutral-900 text-white/75">Month</option>
                   {MONTHS.map((m) => (
                     <option key={m.value} value={m.value} className="bg-neutral-900 text-white">
                       {m.label}
@@ -407,7 +393,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
                   aria-label="Birth day"
                   className={`${SELECT_CLASS} ${birthDay === 0 ? "text-white/65" : ""}`}
                 >
-                  <option value={0} className="bg-neutral-900 text-white/75">day</option>
+                  <option value={0} className="bg-neutral-900 text-white/75">Day</option>
                   {DAYS.map((d) => (
                     <option key={d} value={d} className="bg-neutral-900 text-white">
                       {d}
@@ -430,7 +416,7 @@ export function CheckinForm({ sessionId, eventDetails, vendors = [] }: Props) {
             disabled={state === "loading"}
             className="mt-2 w-full rounded-2xl bg-warm px-6 py-4 font-display text-lg font-semibold tracking-wide text-navy-dark shadow-lg shadow-warm/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-warm/30 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
           >
-            {state === "loading" ? "\u2026" : "check in"}
+            {state === "loading" ? "\u2026" : "Check in"}
           </button>
 
           <p className="text-center text-[0.65rem] leading-relaxed text-white/55">

@@ -137,7 +137,7 @@ const config: RallyConfig = {
     community: "la comunidad",
     member: "runners",
     memberSingular: "runner",
-    greeting: "welcome back",
+    greeting: "Welcome back",
     welcome: "everyone's welcome",
     cta: "come run with us",
   },
@@ -222,9 +222,9 @@ const config: RallyConfig = {
   },
 
   checkin: {
-    welcomeMessage: "bienvenidos a la comunidad",
+    welcomeMessage: "Bienvenidos a la comunidad",
     privacyNotice:
-      "Your info is only used by Más Millas Run Club to keep you in the loop. We'll never share it.",
+      "Your info is only used by Más Millas Run Club to keep you in the loop.",
     localStorageKey: "masmillas-checkin",
   },
 

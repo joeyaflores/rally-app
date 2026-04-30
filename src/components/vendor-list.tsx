@@ -34,7 +34,7 @@ interface Props {
   baseDelay?: number;
 }
 
-export function VendorList({ vendors, label = "today's vendors", baseDelay = 1.0 }: Props) {
+export function VendorList({ vendors, label = "Today's vendors", baseDelay = 1.0 }: Props) {
   if (vendors.length === 0) return null;
 
   return (
